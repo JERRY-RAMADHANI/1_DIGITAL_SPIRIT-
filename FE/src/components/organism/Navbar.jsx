@@ -2,6 +2,7 @@ import { Button } from "../ui/button";
 import { useContext } from "react";
 import { appStateContext } from "../../context/AppStateContext";
 import Report from "@/components/molecules/Report";
+import { Link } from "react-router-dom"; 
 
 const sty = {
 	container:
@@ -12,7 +13,7 @@ const sty = {
 	DialogContent: "flesx justify-center items-center bg-white"
 };
 
-export default function Navbar({ active }) {
+export default function Navbar() {
 	const { appState, setAppState } = useContext(appStateContext);
 
 	const handleClick = () => setAppState({ ...appState, navIsOpen: !appState.navIsOpen });
@@ -20,7 +21,7 @@ export default function Navbar({ active }) {
 	return (
 		<div className={sty.container}>
 			<div className={sty.wrapperHead}>
-				<h3 className="scroll-m-20 text-2xl font-semibold tracking-tight justify-self-start">Digital Compost</h3>
+				<Link to="/" className="scroll-m-20 text-2xl font-semibold tracking-tight justify-self-start">Digital Compost</Link>
 				<Button
 					variant="outline"
 					size="icon"
@@ -32,10 +33,10 @@ export default function Navbar({ active }) {
 			</div>
 
 			<div className={`${sty.wrapper} ${appState.viewport < 768 && appState.navIsOpen == false && "hidden"}`}>
-				<Button variant="link">Distribution</Button>
-				<Button variant="link">Insight</Button>
-				<Button variant="link">Waste</Button>
-				<Report />
+				<h4 className="cursor-pointer scroll-m-20 text-xl font-semibold tracking-tight">Distribution</h4>
+				<h4 className="cursor-pointer scroll-m-20 text-xl font-semibold tracking-tight">Insight</h4>
+				<h4 className="cursor-pointer scroll-m-20 text-xl font-semibold tracking-tight">Report</h4>
+				<h4 className="cursor-pointer scroll-m-20 text-xl font-semibold tracking-tight">Waste</h4>
 			</div>
 
 			<div className={`${sty.wrapper} ${appState.viewport < 768 && appState.navIsOpen == false && "hidden"}`}>
