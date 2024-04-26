@@ -1,6 +1,7 @@
 import { Button } from "../ui/button";
 import { useContext } from "react";
 import { appStateContext } from "../../context/AppStateContext";
+import { Link } from "react-router-dom"; 
 
 const sty = {
 	container:
@@ -11,14 +12,14 @@ const sty = {
 	DialogContent: "flesx justify-center items-center bg-white"
 };
 
-export default function Navbar({ active }) {
+export default function Navbar() {
 	const { appState, setAppState } = useContext(appStateContext);
 	const handleClick = () => setAppState({ ...appState, navIsOpen: !appState.navIsOpen });
 
 	return (
 		<div className={sty.container}>
 			<div className={sty.wrapperHead}>
-				<h3 className="scroll-m-20 text-2xl font-semibold tracking-tight justify-self-start">Digital Compost</h3>
+				<Link to="/" className="scroll-m-20 text-2xl font-semibold tracking-tight justify-self-start">Digital Compost</Link>
 				<Button
 					variant="outline"
 					size="icon"
@@ -29,10 +30,10 @@ export default function Navbar({ active }) {
 				</Button>
 			</div>
 			<div className={`${sty.wrapper} ${appState.viewport < 768 && appState.navIsOpen == false && "hidden"}`}>
-				<h4 className="cursor-pointer scroll-m-20 text-xl font-semibold tracking-tight">Distribution</h4>
-				<h4 className="cursor-pointer scroll-m-20 text-xl font-semibold tracking-tight">Insight</h4>
-				<h4 className="cursor-pointer scroll-m-20 text-xl font-semibold tracking-tight">Report</h4>
-				<h4 className="cursor-pointer scroll-m-20 text-xl font-semibold tracking-tight">Waste</h4>
+				<Link to="/distribution" className="cursor-pointer scroll-m-20 text-xl font-semibold tracking-tight">Distribution</Link>
+				<Link to="/insight" className="cursor-pointer scroll-m-20 text-xl font-semibold tracking-tight">Insight</Link>
+				<Link to="/report" className="cursor-pointer scroll-m-20 text-xl font-semibold tracking-tight">Report</Link>
+				<Link to="/waste" className="cursor-pointer scroll-m-20 text-xl font-semibold tracking-tight">Waste</Link>
 			</div>
 			<div className={`${sty.wrapper} ${appState.viewport < 768 && appState.navIsOpen == false && "hidden"}`}>
 				<Button variant="outline" className={sty.btn}>
