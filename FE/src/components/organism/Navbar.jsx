@@ -1,6 +1,7 @@
 import { Button } from "../ui/button";
 import { useContext } from "react";
 import { appStateContext } from "../../context/AppStateContext";
+import Report from "@/components/molecules/Report";
 
 const sty = {
 	container:
@@ -13,6 +14,7 @@ const sty = {
 
 export default function Navbar({ active }) {
 	const { appState, setAppState } = useContext(appStateContext);
+
 	const handleClick = () => setAppState({ ...appState, navIsOpen: !appState.navIsOpen });
 
 	return (
@@ -28,12 +30,14 @@ export default function Navbar({ active }) {
 					{appState.viewport < 768 && appState.navIsOpen == false ? "☰" : "X"}
 				</Button>
 			</div>
+
 			<div className={`${sty.wrapper} ${appState.viewport < 768 && appState.navIsOpen == false && "hidden"}`}>
-				<h4 className="cursor-pointer scroll-m-20 text-xl font-semibold tracking-tight">Distribution</h4>
-				<h4 className="cursor-pointer scroll-m-20 text-xl font-semibold tracking-tight">Insight</h4>
-				<h4 className="cursor-pointer scroll-m-20 text-xl font-semibold tracking-tight">Report</h4>
-				<h4 className="cursor-pointer scroll-m-20 text-xl font-semibold tracking-tight">Waste</h4>
+				<Button variant="link">Distribution</Button>
+				<Button variant="link">Insight</Button>
+				<Button variant="link">Waste</Button>
+				<Report />
 			</div>
+
 			<div className={`${sty.wrapper} ${appState.viewport < 768 && appState.navIsOpen == false && "hidden"}`}>
 				<Button variant="outline" className={sty.btn}>
 					Log out
