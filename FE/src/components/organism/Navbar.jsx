@@ -1,7 +1,8 @@
 import { Button } from "../ui/button";
 import { useContext } from "react";
 import { appStateContext } from "../../context/AppStateContext";
-import { Link } from "react-router-dom"; 
+import { Link } from "react-router-dom";
+import Report from "@/components/molecules/Report";
 
 const sty = {
 	container:
@@ -14,12 +15,15 @@ const sty = {
 
 export default function Navbar() {
 	const { appState, setAppState } = useContext(appStateContext);
+
 	const handleClick = () => setAppState({ ...appState, navIsOpen: !appState.navIsOpen });
 
 	return (
 		<div className={sty.container}>
 			<div className={sty.wrapperHead}>
-				<Link to="/" className="scroll-m-20 text-2xl font-semibold tracking-tight justify-self-start">Digital Compost</Link>
+				<Link to="/" className="scroll-m-20 text-2xl font-semibold tracking-tight justify-self-start">
+					Digital Compost
+				</Link>
 				<Button
 					variant="outline"
 					size="icon"
@@ -29,12 +33,14 @@ export default function Navbar() {
 					{appState.viewport < 768 && appState.navIsOpen == false ? "☰" : "X"}
 				</Button>
 			</div>
+
 			<div className={`${sty.wrapper} ${appState.viewport < 768 && appState.navIsOpen == false && "hidden"}`}>
-				<Link to="/distribution" className="cursor-pointer scroll-m-20 text-xl font-semibold tracking-tight">Distribution</Link>
-				<Link to="/insight" className="cursor-pointer scroll-m-20 text-xl font-semibold tracking-tight">Insight</Link>
-				<Link to="/report" className="cursor-pointer scroll-m-20 text-xl font-semibold tracking-tight">Report</Link>
-				<Link to="/waste" className="cursor-pointer scroll-m-20 text-xl font-semibold tracking-tight">Waste</Link>
+				<h4 className="cursor-pointer scroll-m-20 text-xl font-semibold tracking-tight">Distribution</h4>
+				<h4 className="cursor-pointer scroll-m-20 text-xl font-semibold tracking-tight">Insight</h4>
+				<h4 className="cursor-pointer scroll-m-20 text-xl font-semibold tracking-tight">Report</h4>
+				<h4 className="cursor-pointer scroll-m-20 text-xl font-semibold tracking-tight">Waste</h4>
 			</div>
+
 			<div className={`${sty.wrapper} ${appState.viewport < 768 && appState.navIsOpen == false && "hidden"}`}>
 				<Button variant="outline" className={sty.btn}>
 					Log out
