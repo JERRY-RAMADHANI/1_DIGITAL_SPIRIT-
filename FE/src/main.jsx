@@ -5,6 +5,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Provider from "@/context/Provider";
 import Login from "./pages/Login";
 import Distribution from "./pages/Distrbution";
+import Insight from "./pages/Insight";
 
 const routes = createBrowserRouter([
 	{
@@ -14,6 +15,10 @@ const routes = createBrowserRouter([
 	{
 		path: "/distribution",
 		element: <Distribution />
+	},
+	{
+		path: "/insight",
+		element: <Insight />
 	}
 ]);
 
