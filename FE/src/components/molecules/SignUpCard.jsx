@@ -44,7 +44,7 @@ export default function SignUpCard() {
 		<Card className="w-full max-w-sm border-none">
 			<CardHeader>
 				<CardTitle className="text-2xl">Register</CardTitle>
-				<CardDescription>Enter your data below to make your new account.</CardDescription>
+				<CardDescription>Masukkan data untuk membuat akun.</CardDescription>
 			</CardHeader>
 			<CardContent className="grid gap-4">
 				{/* NAME */}

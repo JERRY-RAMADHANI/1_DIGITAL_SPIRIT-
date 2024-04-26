@@ -42,10 +42,10 @@ export default function SignInCard() {
 	};
 
 	return (
-		<Card className="w-full max-w-sm border-none">
+		<Card className="w-full max-w-sm p-6">
 			<CardHeader>
-				<CardTitle className="text-2xl">Login</CardTitle>
-				<CardDescription>Enter your email below to login to your account.</CardDescription>
+				<CardTitle className="text-3xl">Digital Compost</CardTitle>
+				<CardDescription>Masukkan email dan password</CardDescription>
 			</CardHeader>
 			<CardContent className="grid gap-4">
 				{/* EMAIL */}
@@ -76,8 +76,8 @@ export default function SignInCard() {
 				</div>
 			</CardContent>
 			<CardFooter>
-				<Button type="submit" onClick={formik.handleSubmit} className="w-full">
-					Sign in
+				<Button type="submit" onClick={formik.handleSubmit} className="w-full bg-lime-500">
+					LOGIN
 				</Button>
 			</CardFooter>
 		</Card>
