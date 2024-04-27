@@ -14,12 +14,12 @@ class UserSeeder extends Seeder
     public function run(): void
     {
         User::create([
-            'nama' => 'tes',
-            'role_id' => 1,
-            'no_telp' => 123123123131111,
-            'email' => '123gmail@.com',
-            'password' => 'test test',
-            'alamat' => 'tseeeee',
+            'nama' => 'Pohon Apel',
+            'role' => mt_rand(1, 3),
+            'no_telp' => mt_rand(11111111111, 99999999999),
+            'email' => 'gmail@.com',
+            'password' => 'jdjjdjjdjjdiej',
+            'alamat' => 'jjdjj3iidjjwiej',
             'gender' => 1,
         ]);
     }

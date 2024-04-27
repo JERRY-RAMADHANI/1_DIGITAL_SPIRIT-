@@ -43,9 +43,9 @@ Route::prefix('sector')->group(function () {
     Route::get('/detail/{id}', [SectorController::class, 'detail']);
 });
 
-Route::prefix('message')->middleware('auth:sanctum')->group(function () {
+Route::prefix('message')->group(function () {
     Route::post('/sendMessage', [ReportController::class, 'sendMessage']);
-    Route::get('/chatHistory', [ReportController::class, 'getChatHistory']);
+    Route::get('/chatHistory', [reportController::class, 'getChatHistory']);
 });
 
 
