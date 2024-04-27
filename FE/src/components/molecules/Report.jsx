@@ -1,6 +1,6 @@
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
-import LaporanCard from "./LaporanCard";
+import ReportCard from "./ReportCard";
 import { Button } from "@/components/ui/button";
 import { Card, CardDescription, CardHeader, CardTitle } from "../ui/card";
 import { useGet } from "@/hooks/useFetch";
@@ -28,7 +28,7 @@ export default function Report() {
 					</DialogTrigger>
 
 					<DialogContent>
-						<LaporanCard />
+						<ReportCard />
 					</DialogContent>
 				</Dialog>
 

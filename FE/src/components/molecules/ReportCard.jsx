@@ -6,7 +6,7 @@ import { useFormik } from "formik";
 import * as yup from "yup";
 import axios from "axios";
 
-export default function LaporanCard() {
+export default function ReportCard() {
 	const formik = useFormik({
 		initialValues: {
 			title: "",
@@ -28,7 +28,7 @@ export default function LaporanCard() {
 			title: values.title,
 			message: values.message
 		});
-		console.log(res.data);
+
 		return res.data;
 	};
 
