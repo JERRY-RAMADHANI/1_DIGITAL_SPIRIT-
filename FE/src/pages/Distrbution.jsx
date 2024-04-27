@@ -1,19 +1,30 @@
 import Navbar from "@/components/organism/Navbar";
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Link } from "react-router-dom";
 import { useGet } from "@/hooks/useFetch";
 import kbs from "@/assets/images/peta.png";
 import kbsMapping from "@/assets/images/peta_mapping.png";
 
 export default function Distribution() {
-	const { data } = useGet("http://127.0.0.1:8000/api/sector/");
-	let sortedData;
-	useEffect(() => {
-		sortedData = data ? [...data.data].sort((a, b) => a.nama_sektor.localeCompare(b.nama_sektor)) : [];
-	}, [data]);
 	const [isMapping, setIsMapping] = useState(false);
+	const [data, setData] = useState(undefined);
+
+	useEffect(() => {
+		fetch("http://127.0.0.1:8000/api/sector/", {
+			method: "GET",
+			headers: {
+				"Content-Type": "application/json"
+			}
+		})
+			.then((data) => data.json())
+			.then((data) => setData([...data.data]));
+	}, []);
+
+	useEffect(() => {
+		console.log(data);
+	}, [data]);
 
 	return (
 		<>
@@ -34,18 +45,17 @@ export default function Distribution() {
 							</Button>
 							<img src={isMapping ? kbsMapping : kbs} alt="Map KBS" />
 						</div>
-					</CardContent>
-
-					<CardContent className="flex flex-row flex-wrap gap-4 justify-center">
-						{sortedData &&
-							sortedData.map((sector) => (
+					</CardContent>{" "}
+					<CardFooter className="flex flex-row flex-wrap gap-4 justify-center">
+						{data &&
+							data.map((sector) => (
 								<Link key={sector.id} to={`/distribution/${sector.id}`}>
-									<Button className="w-fit h-8 hover:cursor-pointer hover:text-slate-950 text-white bg-slate-950 hover:bg-white border-2 border-slate-950">
+									<Button className="z-10 w-fit h-8 hover:cursor-pointer hover:text-slate-950 text-white bg-slate-950 hover:bg-white border-2 border-slate-950">
 										{sector.nama_sektor}
 									</Button>
 								</Link>
 							))}
-					</CardContent>
+					</CardFooter>
 				</Card>
 			</main>
 		</>
