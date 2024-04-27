@@ -71,7 +71,7 @@ export default function SignInCard() {
 				</div>
 			</CardContent>
 			<CardFooter>
-				<Button type="submit" onClick={formik.handleSubmit} className="w-full bg-lime-500">
+				<Button type="submit" onClick={formik.handleSubmit} className="w-full bg-green-600">
 					LOGIN
 				</Button>
 			</CardFooter>

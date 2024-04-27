@@ -40,25 +40,29 @@ export default function Navbar() {
 					onClick={() => setAppState({ ...appState, navIsOpen: false, activeLink: "distribution" })}
 					className={sty.Link}
 				>
-					<Button variant="link" className={appState.activeLink == "distribution" && "underline"}>
+					<Button variant="link" className={`${appState.activeLink == "distribution" && "underline"} text-green-700`}>
 						Distribution
 					</Button>
 				</Link>
+
 				<Link
 					to="/insight"
 					onClick={() => setAppState({ ...appState, navIsOpen: false, activeLink: "insight" })}
-					className={sty.Link}
+					className={`${sty.Link} `}
 				>
-					<Button variant="link" className={appState.activeLink == "insight" && "underline"}>
+					<Button variant="link" className={`${appState.activeLink == "insight" && "underline"} text-green-700`}>
 						Insight
 					</Button>
 				</Link>
+
 				<Link
 					to="/waste"
 					onClick={() => setAppState({ ...appState, navIsOpen: false, activeLink: "waste" })}
 					className={` ${appState.activeLink == "waste" && "underline"}`}
 				>
-					<Button variant="link">Waste</Button>
+					<Button variant="link" className={`${appState.activeLink == "waste" && "underline"} text-green-700`}>
+						Waste
+					</Button>
 				</Link>
 
 				<Report />

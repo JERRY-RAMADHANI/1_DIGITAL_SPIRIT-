@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import Navbar from "@/components/organism/Navbar";
-import bg1 from "../images/bg1.jpg";
-import bg2 from "../images/bg2.jpg";
+import bg1 from "@/assets/images/bg1.jpg";
+import bg2 from "@/assets/images/bg2.jpg";
 
 const collection = [bg1, bg2];
 
