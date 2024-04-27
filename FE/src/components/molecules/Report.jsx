@@ -6,7 +6,7 @@ import { Card, CardDescription, CardHeader, CardTitle } from "../ui/card";
 import { useGet } from "@/hooks/useFetch";
 
 export default function Report() {
-	const { data } = useGet("http://127.0.0.1:8000/api/message/chatHistory");
+	// const { data } = useGet("http://127.0.0.1:8000/api/message/chatHistory");
 
 	return (
 		<Sheet>
@@ -33,9 +33,9 @@ export default function Report() {
 				</Dialog>
 
 				<div className="flex flex-col gap-4 overflow-scroll overflow-x-hidden">
-					{data.map((data) => (
+					{/* {data.map((data) => (
 						<BubbleChat key={data.id} data={data} />
-					))}
+					))} */}
 				</div>
 			</SheetContent>
 		</Sheet>
