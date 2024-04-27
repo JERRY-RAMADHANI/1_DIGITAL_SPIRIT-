@@ -17,6 +17,6 @@ class Sector extends Model
      */
     public function tumbuhan(): HasMany
     {
-        return $this->hasMany(Plant::class, 'sector_group', 'id');
+        return $this->hasMany(Plant::class, 'sector_id', 'id');
     }
 }

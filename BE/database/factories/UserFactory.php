@@ -27,7 +27,7 @@ class UserFactory extends Factory
         return [
             'nama' => fake()->name(),
             'role_id' => mt_rand(1, 3),
-            'no_telp' => '051557546731',
+            'no_telp' => mt_rand(1000000000, 9999999999),
             'email' => fake()->unique()->safeEmail(),
             'password' => static::$password ??= Hash::make('password'),
             'alamat' => fake()->address(),

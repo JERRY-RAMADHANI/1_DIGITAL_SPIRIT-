@@ -11,9 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('fertilizers', function (Blueprint $table) {
+        Schema::create('composts', function (Blueprint $table) {
             $table->id();
-            $table->string('nama');
             $table->float('total');
             $table->timestamps();
         });
@@ -24,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('fertilizers');
+        Schema::dropIfExists('composts');
     }
 };

@@ -16,6 +16,10 @@ class HistoryResource extends JsonResource
     {
         return [
             'id' => $this->id,
+            'tipe' => $this->tipe,
+            'nominal' => $this->nominal,
+            'jumlah_akhir' => $this->jumlah_akhir,
+            'authorCompost' => $this->whenLoaded('authorCompost'),
             'created_at' => $this->created_at->format('Y-m-d H:i')
         ];
     }

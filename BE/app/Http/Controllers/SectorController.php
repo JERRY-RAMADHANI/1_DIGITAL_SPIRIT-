@@ -53,7 +53,13 @@ class SectorController extends Controller
      */
     public function show(Sector $sector)
     {
-        //
+        // $sector = Sector::with('tumbuhan:id,sector_group');
+        $sector->loadMissing('tumbuhan');
+        if (!$sector) {
+            return abort(404);
+        }
+
+        return new SectorDetailResource($sector);
     }
 
     /**
@@ -69,7 +75,24 @@ class SectorController extends Controller
      */
     public function update(Request $request, Sector $sector)
     {
-        //
+        if (auth()->user()->id !== 3) {
+            abort(403, 'Anda tidak memiliki izin untuk mengubah content ini.');
+        }
+
+        $request->validate([
+            'nama_sektor' => 'required|string',
+            'lokasi_sektor' => 'required|string',
+            'total_konsumsi_kompos' => 'required',
+            'deskripsi_singkat_sektor' => 'nullable|string',
+        ]);
+
+        Sector::where('id', $sector->id)
+            ->update([
+                'nama_sektor' => $request['nama_sektor'],
+                'lokasi_sektor' => $request['lokasi_sektor'],
+                'total_konsumsi_kompos' => $request['total_konsumsi_kompos'],
+                'deskripsi_singkat_sektor' => $request['nama_sektor'],
+            ]);
     }
 
     /**

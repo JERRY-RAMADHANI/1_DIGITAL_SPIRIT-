@@ -29,7 +29,10 @@ Route::prefix('auth')->group(function () {
 });
 
 Route::prefix('compost')->group(function () {
+    Route::get('/{compost}', [CompostHistoryController::class, 'show']);
     Route::post('/store', [CompostHistoryController::class, 'store']);
+    Route::patch('/{compost}', [CompostHistoryController::class, 'update']);
+    Route::delete('/{compost}', [CompostHistoryController::class, 'destroy']);
 });
 
 Route::prefix('plant')->group(function () {
@@ -38,6 +41,8 @@ Route::prefix('plant')->group(function () {
 
 Route::prefix('sector')->group(function () {
     Route::get('/', [SectorController::class, 'index']);
+    Route::get('/{sector}', [SectorController::class, 'show']);
+    Route::post('/store', [SectorController::class, 'store']);
 });
 
 

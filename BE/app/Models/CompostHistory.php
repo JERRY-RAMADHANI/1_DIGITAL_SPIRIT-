@@ -10,6 +10,10 @@ class CompostHistory extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'user_id', 'nominal', 'tipe', 'jumlah_akhir'
+    ];
+
     /**
      * Get the user that owns the CompostHistory
      *

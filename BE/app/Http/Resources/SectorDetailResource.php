@@ -20,6 +20,7 @@ class SectorDetailResource extends JsonResource
             'lokasi_sektor' => $this->lokasi_sektor,
             'deksripsi_singkat_sektor' => $this->deksripsi_singkat_sektor,
             'total_konsumsi_kompos' => $this->total_konsumsi_kompos,
+            'tumbuhan' => $this->whenLoaded('tumbuhan'),
             'created_at' => $this->created_at->format('Y-m-d H:i')
         ];
     }

@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Resources\HistoryResource;
-use App\Models\CompostHistory;
-use App\Models\Fertilizer;
+use App\Models\Compost;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use App\Models\CompostHistory;
+use App\Http\Resources\HistoryResource;
 
 class CompostHistoryController extends Controller
 {
@@ -15,7 +14,8 @@ class CompostHistoryController extends Controller
      */
     public function index()
     {
-        //
+        $compostHistory = CompostHistory::all();
+        return HistoryResource::collection($compostHistory);
     }
 
     /**
@@ -31,27 +31,28 @@ class CompostHistoryController extends Controller
      */
     public function store(Request $request)
     {
+        // $request['user_id'] = Auth::user()->id;
         $request->validate([
             'user_id' => 'required|exists:users,id',
             'nominal' => 'required|numeric|min:0',
             'tipe' => 'required|numeric'
         ]);
 
-        $request['user_id'] = Auth::user()->id;
-
-        $kompos = Fertilizer::where('nama', 'kompos')->first();
+        $kompos = Compost::first();
 
         if (!$kompos) {
             return response()->json(['error' => 'Data kompos tidak ditemukan'], 404);
         }
 
-        if ($request->tipe) {
-            $kompos->total += $request->nominal;
+        if ($request['tipe'] === 1) {
+            $kompos['total'] += $request['nominal'];
         } else {
-            $kompos->total -= $request->nominal;
+            $kompos['total'] -= $request['nominal'];
         }
 
         $kompos->save();
+
+        $request['jumlah_akhir'] = $kompos['total'];
 
         $compostHistory = CompostHistory::create($request->all());
 
@@ -63,7 +64,12 @@ class CompostHistoryController extends Controller
      */
     public function show(CompostHistory $compostHistory)
     {
-        //
+        $compostHistory = CompostHistory::with('authorCompost:id,nama,role_id')->first();
+        if (!$compostHistory) {
+            return abort(404);
+        }
+
+        return new HistoryResource($compostHistory);
     }
 
     /**
@@ -79,7 +85,50 @@ class CompostHistoryController extends Controller
      */
     public function update(Request $request, CompostHistory $compostHistory)
     {
-        //
+        // $request['user_id'] = Auth::user()->id;
+        $request->validate([
+            'user_id' => 'required|exists:users,id',
+            'nominal' => 'required|numeric|min:0',
+            'tipe' => 'required|numeric'
+        ]);
+
+        if ($compostHistory['nominal'] - $request['nominal'] != 0) {
+            $selisih = $compostHistory['nominal'] - $request['nominal'];
+        } else {
+            $selisih = 0;
+        }
+
+        $kompos = Compost::first();
+
+        if (!$kompos) {
+            return response()->json(['error' => 'Data kompos tidak ditemukan'], 404);
+        }
+
+        if ($request['tipe'] != $compostHistory['tipe']) {
+            $selisih *= 2;
+        }
+
+        if ($request['tipe'] === 1) {
+            $kompos['total'] -= $selisih;
+        } else {
+            $kompos['total'] += $selisih;
+        }
+
+        $kompos->save();
+
+
+        $request['jumlah_akhir'] = $compostHistory['jumlah_akhir'] + $selisih;
+
+        dd($compostHistory);
+
+        CompostHistory::where('id', $compostHistory['id'])
+            ->update([
+                'nominal' => $request['nominal'],
+                'tipe' => $request['tipe'],
+                'jumlah_akhir' => $request['jumlah_akhir'],
+            ]);
+
+        return response()->json($kompos['total'], 201);
     }
 
     /**
@@ -87,6 +136,17 @@ class CompostHistoryController extends Controller
      */
     public function destroy(CompostHistory $compostHistory)
     {
-        //
+        $kompos = Compost::first();
+
+        if ($compostHistory['tipe'] === 1) {
+            $kompos['total'] -= $compostHistory['nominal'];
+        } else {
+            $kompos['total'] += $compostHistory['nominal'];
+        }
+
+        $kompos->save();
+        $compostHistory->delete();
+
+        return response()->json($kompos['total'], 201);
     }
 }

@@ -6,6 +6,7 @@ use App\Models\Role;
 use App\Models\User;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Compost;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -15,14 +16,18 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        Compost::create([
+            'total' => 10
+        ]);
+
         Role::create([
-            'nama' => 'Petugas Bersih-Bersih Sampah'
+            'jenis_role' => 'Petugas Bersih-Bersih Sampah'
         ]);
         Role::create([
-            'nama' => 'Petugas Pemupuk Tumbuhan'
+            'jenis_role' => 'Petugas Pemupuk Tumbuhan'
         ]);
         Role::create([
-            'nama' => 'Admin'
+            'jenis_role' => 'Admin'
         ]);
 
         User::factory(9)->create();
