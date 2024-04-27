@@ -61,7 +61,7 @@ class HistoryController extends Controller
      */
     public function store(Request $request)
     {
-        $request['user_id'] = Auth::user()->id;
+        // $request['user_id'] = Auth::user()->id;
         $request->validate([
             'user_id' => 'required|exists:users,id',
             'nominal' => 'required|numeric|min:0',

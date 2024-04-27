@@ -12,11 +12,13 @@ class ReportController extends Controller
         $validated = $request->validate([
             'sender_id' => 'required|exists:users,id',
             'message' => 'required|string',
+            'title' => 'required|string',
         ]);
 
         $message = Report::create([
             'sender_id' => $validated['sender_id'],
             'message' => $validated['message'],
+            'title' => $validated['title'],
         ]);
 
         return response()->json($message);
