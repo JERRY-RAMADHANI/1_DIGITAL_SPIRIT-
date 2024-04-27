@@ -17,18 +17,17 @@ export default function SignInCard() {
 			password: ""
 		},
 		validationSchema: yup.object({
-			email: yup.string().email().min(2).max(50).required(),
+			email: yup.string().min(2).max(50).required(),
 			password: yup.string().min(8).required()
 		}),
 		onSubmit: (values) => {
-			fetchAuth("LOGIN", values)
-				.then((data) => {
-					console.log("__SUCCESS__", data);
-					setAuth({ authenticated: true });
-				})
-				.catch((error) => {
-					console.log("__ERROR__", error);
-				});
+			fetch("http://127.0.0.1:8000/api/auth/login", {
+				method: "POST",
+				headers: { "Content-Type": "application/json" },
+				body: JSON.stringify({ email: values.email, password: values.password })
+			}).then((data) => {
+				if (data.ok) window.location.href = "/home";
+			});
 		}
 	});
 

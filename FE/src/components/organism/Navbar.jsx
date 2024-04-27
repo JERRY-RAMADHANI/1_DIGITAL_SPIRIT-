@@ -69,7 +69,7 @@ export default function Navbar() {
 			</div>
 
 			<div className={`${sty.wrapper} ${appState.viewport < 768 && appState.navIsOpen == false && "hidden"}`}>
-				<Button variant="outline" className={sty.btn}>
+				<Button onClick={() => (window.location.href = "/")} variant="outline" className={sty.btn}>
 					Log out
 				</Button>
 			</div>
