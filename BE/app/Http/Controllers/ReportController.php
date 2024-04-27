@@ -7,59 +7,27 @@ use Illuminate\Http\Request;
 
 class ReportController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        //
-    }
+public function sendMessage(Request $request)
+{
+    $validated = $request->validate([
+        'sender_id' => 'required|exists:users,id',
+        'message' => 'required|string',
+    ]);
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
+    $message = Report::create([
+        'sender_id' => $validated['sender_id'],
+        'message' => $validated['message'],
+    ]);
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
+    return response()->json($message);
+}
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Report $report)
-    {
-        //
-    }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Report $report)
+    public function getChatHistory()
     {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Report $report)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Report $report)
-    {
-        //
+        $report = report::orderBy('created_at', 'asc')->get();
+    
+        return response()->json($report);
     }
 }
+

@@ -2,14 +2,15 @@
 
 use App\Models\transaction;
 use Illuminate\Http\Request;
+use App\Models\CompostHistory;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\CompostHistoryController;
 use App\Http\Controllers\inputController;
 use App\Http\Controllers\PlantController;
+use App\Http\Controllers\ReportController;
 use App\Http\Controllers\SectorController;
 use App\Http\Controllers\TransactionController;
-use App\Models\CompostHistory;
+use App\Http\Controllers\CompostHistoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -40,6 +41,11 @@ Route::prefix('plant')->group(function () {
 Route::prefix('sector')->group(function () {
     Route::get('/', [SectorController::class, 'index']);
     Route::get('/detail/{id}', [SectorController::class, 'detail']);
+});
+
+Route::prefix('message')->group(function () {
+    Route::post('/sendMessage', [ReportController::class, 'sendMessage']);
+    Route::get('/chatHistory', [reportController::class, 'getChatHistory']);
 });
 
 

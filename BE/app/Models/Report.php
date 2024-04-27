@@ -10,6 +10,13 @@ class Report extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'sender_id',
+        'message',
+        'password',
+        
+    ];
+
     /**
      * Get the user that owns the Report
      *
