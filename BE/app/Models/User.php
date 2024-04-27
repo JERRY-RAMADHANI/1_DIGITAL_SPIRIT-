@@ -71,10 +71,7 @@ class User extends Authenticatable
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function anorganicHistory(): HasMany
-    {
-        return $this->hasMany(AnorganicHistory::class, 'authorAnorganic', 'id');
-    }
+
 
     /**
      * Get all of the compostHistory for the User
