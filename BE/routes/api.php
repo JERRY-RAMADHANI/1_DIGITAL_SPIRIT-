@@ -25,12 +25,12 @@ Route::prefix('auth')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout']);
 });
 
-Route::prefix('plant')->middleware('auth:sanctum')->group(function () {
+Route::prefix('plant')->group(function () {
     Route::post('/store', [PlantController::class, 'store']);
     Route::delete('/delete/{id}', [PlantController::class, 'destroy']);
 });
 
-Route::prefix('history')->middleware('auth:sanctum')->group(function () {
+Route::prefix('history')->group(function () {
     Route::get('/', [HistoryController::class, 'index']);
     Route::post('/store', [HistoryController::class, 'store']);
     Route::get('/{history}', [HistoryController::class, 'show']);
@@ -38,14 +38,14 @@ Route::prefix('history')->middleware('auth:sanctum')->group(function () {
     Route::delete('/{history}', [HistoryController::class, 'destroy']);
 });
 
-Route::prefix('sector')->middleware('auth:sanctum')->group(function () {
+Route::prefix('sector')->group(function () {
     Route::get('/', [SectorController::class, 'index']);
     Route::get('/detail/{id}', [SectorController::class, 'detail']);
 });
 
-Route::prefix('message')->middleware('auth:sanctum')->group(function () {
+Route::prefix('message')->group(function () {
     Route::post('/sendMessage', [ReportController::class, 'sendMessage']);
-    Route::get('/chatHistory', [ReportController::class, 'getChatHistory']);
+    Route::get('/chatHistory', [reportController::class, 'getChatHistory']);
 });
 
 

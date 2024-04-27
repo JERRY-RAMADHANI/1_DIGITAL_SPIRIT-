@@ -15,7 +15,37 @@ class HistoryController extends Controller
      */
     public function index()
     {
-        return HistoryResource::collection(History::with('author:id,nama,role_id')->get());
+        $historyKompos = History::with('author:id,nama,role_id')
+            ->whereDate('created_at', '>', now()->subDays(7))
+            ->where('tipe_sampah', 'Kompos')
+            ->get();
+
+        $totalPengeluaran = 0;
+        $totalPendapatan = 0;
+        foreach ($historyKompos as $data) {
+            if ($data['tipe_histori'] == 1) {
+                $totalPendapatan += $data['nominal'];
+            } else {
+                $totalPengeluaran += $data['nominal'];
+            }
+        }
+
+        $history = History::with('author:id,nama,role_id')
+            ->get();
+
+
+        $totalKompos = Trash::where('tipe_sampah', '1')->first();
+        $totalOrganic = Trash::where('tipe_sampah', '2')->first();
+        $totalAnorganic = Trash::where('tipe_sampah', '3')->first();
+        // return HistoryResource::collection(History::with('author:id,nama,role_id')->get());
+        return response()->json([
+            'history' => $history,
+            'totalPengeluaran' => $totalPengeluaran,
+            'totalPendapatan' => $totalPendapatan,
+            'totalKompos' =>  $totalKompos['total_sampah'],
+            'totalOrganic' =>  $totalOrganic['total_sampah'],
+            'totalAnorganic' =>  $totalAnorganic['total_sampah'],
+        ]);
     }
 
     /**
@@ -31,39 +61,38 @@ class HistoryController extends Controller
      */
     public function store(Request $request)
     {
+        $request['user_id'] = Auth::user()->id;
         $request->validate([
+            'user_id' => 'required|exists:users,id',
             'nominal' => 'required|numeric|min:0',
             'tipe_histori' => 'required|numeric',
             'tipe_sampah' => 'required',
         ]);
 
-        $userId = auth()->user()->id;
-    
-        $sampah = Trash::where('tipe_sampah', $request['tipe_sampah'])->first();
-    
+        $sampah  = Trash::where('tipe_sampah', '1')->first();
+        if ($request['tipe_sampah'] == "Organic") {
+            $sampah  = Trash::where('tipe_sampah', '2')->first();
+        } else if ($request['tipe_sampah'] == "Anorganic") {
+            $sampah  = Trash::where('tipe_sampah', '3')->first();
+        }
+
         if (!$sampah) {
             return response()->json(['error' => 'Data sampah tidak ditemukan'], 404);
         }
-    
+
         if ($request['tipe_histori'] === 1) {
-            $sampah->total_sampah += $request['nominal'];
+            $sampah['total_sampah'] += $request['nominal'];
         } else {
-            $sampah->total_sampah -= $request['nominal'];
+            $sampah['total_sampah'] -= $request['nominal'];
         }
-    
+
         $sampah->save();
-    
-        $history = History::create([
-            'user_id' => $userId,
-            'nominal' => $request['nominal'],
-            'tipe_histori' => $request['tipe_histori'],
-            'tipe_sampah' => $request['tipe_sampah'],
-        ]);
-    
+        $history = History::create($request->all());
+
         if (!$history) {
             return abort(404);
         }
-    
+
         return new HistoryResource($history);
     }
 
@@ -93,9 +122,9 @@ class HistoryController extends Controller
      */
     public function update(Request $request, History $history)
     {
-        // $request['user_id'] = Auth::user()->id;
+        $request['user_id'] = Auth::user()->id;
         $request->validate([
-            // 'user_id' => 'required|exists:users,id',
+            'user_id' => 'required|exists:users,id',
             'nominal' => 'required|numeric|min:0',
             'tipe_histori' => 'required|numeric',
             'tipe_sampah' => 'required',
@@ -121,9 +150,12 @@ class HistoryController extends Controller
 
 
         if ($request['tipe_histori'] != $history['tipe_histori']) {
-            $selisih += $request['nominal'];
+            if ($history['tipe_histori'] == 0) {
+                $sampah['total_sampah'] + $history['nominal'];
+            } else {
+                $sampah['total_sampah'] - $history['nominal'];
+            }
         }
-
 
         if ($request['tipe_histori'] === 1) {
             $sampah['total_sampah'] -= $selisih;

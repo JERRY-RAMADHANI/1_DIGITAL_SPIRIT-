@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->integer('role');
+            $table->unsignedBigInteger('role_id');
             $table->string('nama');
             $table->string('no_telp')->unique();
             $table->string('email')->unique();
@@ -21,6 +21,8 @@ return new class extends Migration
             $table->text('alamat');
             $table->boolean('gender');
             $table->timestamps();
+
+            $table->foreign('role_id')->references('id')->on('roles')->onDelete('cascade');
         });
     }
 
