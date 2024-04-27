@@ -7,14 +7,9 @@ import * as yup from "yup";
 import { fetchAuth } from "@/lib/fetchUtils";
 import { useContext } from "react";
 import { AuthContext } from "../../context/AuthContext";
-import { useEffect } from "react";
 
 export default function SignInCard() {
 	const [auth, setAuth] = useContext(AuthContext);
-
-	useEffect(() => {
-		console.log(auth);
-	}, [auth]);
 
 	const formik = useFormik({
 		initialValues: {
