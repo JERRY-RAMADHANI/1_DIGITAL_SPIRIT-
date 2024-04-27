@@ -32,6 +32,10 @@ Route::prefix('plant')->group(function () {
 
 Route::prefix('history')->group(function () {
     Route::get('/', [HistoryController::class, 'index']);
+    Route::post('/store', [HistoryController::class, 'store']);
+    Route::get('/{history}', [HistoryController::class, 'show']);
+    Route::patch('/{history}', [HistoryController::class, 'update']);
+    Route::delete('/{history}', [HistoryController::class, 'destroy']);
 });
 
 Route::prefix('sector')->group(function () {

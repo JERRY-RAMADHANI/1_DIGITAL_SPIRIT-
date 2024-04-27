@@ -61,18 +61,30 @@ class User extends Authenticatable
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
+    public function organicHistory(): HasMany
+    {
+        return $this->hasMany(OrganicHistory::class, 'authorOrganic', 'id');
+    }
 
     /**
      * Get all of the anorganicHistory for the User
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
+    public function anorganicHistory(): HasMany
+    {
+        return $this->hasMany(AnorganicHistory::class, 'authorAnorganic', 'id');
+    }
 
     /**
      * Get all of the compostHistory for the User
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
+    public function compostHistory(): HasMany
+    {
+        return $this->hasMany(CompostHistory::class, 'authorCompost', 'id');
+    }
 
     /**
      * Get all of the report for the User

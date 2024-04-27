@@ -14,7 +14,13 @@ class RoleSeeder extends Seeder
     public function run(): void
     {
         Role::create([
-            'jenis_role' => 'Pohon Apel',
+            'jenis_role' => 'Petugas Pembersih Sampah',
+        ]);
+        Role::create([
+            'jenis_role' => 'Petugas Penyebar Pupuk',
+        ]);
+        Role::create([
+            'jenis_role' => 'Admin',
         ]);
     }
 }

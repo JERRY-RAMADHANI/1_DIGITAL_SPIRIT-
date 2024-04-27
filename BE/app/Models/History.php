@@ -10,6 +10,10 @@ class History extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'user_id', "tipe_histori", "tipe_sampah", "nominal"
+    ];
+
     /**
      * Get the user that owns the History
      *

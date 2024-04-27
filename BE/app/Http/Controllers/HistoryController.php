@@ -15,7 +15,7 @@ class HistoryController extends Controller
      */
     public function index()
     {
-        return HistoryResource::collection(History::get());
+        return HistoryResource::collection(History::with('author:id,nama,role_id')->get());
     }
 
     /**
@@ -31,7 +31,7 @@ class HistoryController extends Controller
      */
     public function store(Request $request)
     {
-        $request['user_id'] = Auth::user()->id;
+        // $request['user_id'] = 3;
         $request->validate([
             'user_id' => 'required|exists:users,id',
             'nominal' => 'required|numeric|min:0',
@@ -39,25 +39,25 @@ class HistoryController extends Controller
             'tipe_sampah' => 'required',
         ]);
 
-        if ($request['tipe_sampah'] === 1) {
-            $sampah  = Trash::where('tipe_sampah', '1')->first();
-        } else if ($request['tipe_sampah'] === 2) {
+        $sampah  = Trash::where('tipe_sampah', '1')->first();
+        if ($request['tipe_sampah'] == "Organic") {
             $sampah  = Trash::where('tipe_sampah', '2')->first();
-        } else if ($request['tipe_sampah'] === 3) {
+        } else if ($request['tipe_sampah'] == "Anorganic") {
             $sampah  = Trash::where('tipe_sampah', '3')->first();
         }
 
         if (!$sampah) {
             return response()->json(['error' => 'Data sampah tidak ditemukan'], 404);
         }
+
         if ($request['tipe_histori'] === 1) {
             $sampah['total_sampah'] += $request['nominal'];
         } else {
             $sampah['total_sampah'] -= $request['nominal'];
         }
-        $sampah->save();
 
-        $history = HistoryController::create($request->all());
+        $sampah->save();
+        $history = History::create($request->all());
 
         if (!$history) {
             return abort(404);
@@ -92,13 +92,14 @@ class HistoryController extends Controller
      */
     public function update(Request $request, History $history)
     {
-        $request['user_id'] = Auth::user()->id;
+        // $request['user_id'] = Auth::user()->id;
         $request->validate([
-            'user_id' => 'required|exists:users,id',
+            // 'user_id' => 'required|exists:users,id',
             'nominal' => 'required|numeric|min:0',
             'tipe_histori' => 'required|numeric',
             'tipe_sampah' => 'required',
         ]);
+
 
         if ($history['nominal'] - $request['nominal'] != 0) {
             $selisih = $history['nominal'] - $request['nominal'];
@@ -106,11 +107,10 @@ class HistoryController extends Controller
             $selisih = 0;
         }
 
-        if ($request['tipe_sampah'] === 1) {
-            $sampah  = Trash::where('tipe_sampah', '1')->first();
-        } else if ($request['tipe_sampah'] === 2) {
+        $sampah  = Trash::where('tipe_sampah', '1')->first();
+        if ($request['tipe_sampah'] == "Organic") {
             $sampah  = Trash::where('tipe_sampah', '2')->first();
-        } else if ($request['tipe_sampah'] === 3) {
+        } else if ($request['tipe_sampah'] == "Anorganic") {
             $sampah  = Trash::where('tipe_sampah', '3')->first();
         }
 
@@ -118,14 +118,16 @@ class HistoryController extends Controller
             return response()->json(['error' => 'Data sampah tidak ditemukan'], 404);
         }
 
-        if ($request['tipe_histori'] === 1) {
-            $sampah['total_sampah'] += $request['nominal'];
-        } else {
-            $sampah['total_sampah'] -= $request['nominal'];
-        }
 
         if ($request['tipe_histori'] != $history['tipe_histori']) {
-            $selisih *= 2;
+            $selisih += $request['nominal'];
+        }
+
+
+        if ($request['tipe_histori'] === 1) {
+            $sampah['total_sampah'] -= $selisih;
+        } else {
+            $sampah['total_sampah'] += $selisih;
         }
 
         $sampah->save();
@@ -144,9 +146,8 @@ class HistoryController extends Controller
      */
     public function destroy(History $history)
     {
-        if ($history['tipe_sampah'] === 1) {
-            $sampah  = Trash::where('tipe_sampah', '1')->first();
-        } else if ($history['tipe_sampah'] === 2) {
+        $sampah  = Trash::where('tipe_sampah', '1')->first();
+        if ($history['tipe_sampah'] === 2) {
             $sampah  = Trash::where('tipe_sampah', '2')->first();
         } else if ($history['tipe_sampah'] === 3) {
             $sampah  = Trash::where('tipe_sampah', '3')->first();
