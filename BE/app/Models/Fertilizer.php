@@ -5,12 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Sektor extends Model
+class Fertilizer extends Model
 {
     use HasFactory;
-
-    public function Taman()
-    {
-        return $this->hasMany(tumbuhan::class);
-    }
 }

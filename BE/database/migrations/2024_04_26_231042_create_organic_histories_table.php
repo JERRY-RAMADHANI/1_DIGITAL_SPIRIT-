@@ -11,13 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('sektors', function (Blueprint $table) {
+        Schema::create('organic_histories', function (Blueprint $table) {
             $table->id();
-            $table->string('Nama');
-            $table->string('Lokasi');
-            $table->string('Deskripsi');
-            $table->integer('Total_konsumsi_Kompos');
+            $table->unsignedBigInteger('user_id');
+            $table->boolean('tipe');
+            $table->float('nominal');
+            $table->float('jumlah_akhir');
             $table->timestamps();
+
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 
@@ -26,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('sektors');
+        Schema::dropIfExists('organic_histories');
     }
 };

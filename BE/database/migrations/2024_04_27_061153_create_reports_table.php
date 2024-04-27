@@ -11,10 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('kompos', function (Blueprint $table) {
+        Schema::create('reports', function (Blueprint $table) {
             $table->id();
-            $table->integer('jumlah');
-            $table->timestamps();
+            $table->unsignedBigInteger('sender_id');
+            $table->text('message');
+            $table->timestamp('created_at')->useCurrent();
+            $table->foreign('sender_id')->references('id')->on('users');
+            $table->timestamp('updated_at')->nullable();
         });
     }
 
@@ -23,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('kompos');
+        Schema::dropIfExists('reports');
     }
 };

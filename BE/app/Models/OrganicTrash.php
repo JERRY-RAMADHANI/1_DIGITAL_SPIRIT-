@@ -5,12 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class tumbuhan extends Model
+class OrganicTrash extends Model
 {
     use HasFactory;
-
-    public function Tanaman()
-    {
-        return $this->belongsTo(Sektor::class);
-    }
 }
