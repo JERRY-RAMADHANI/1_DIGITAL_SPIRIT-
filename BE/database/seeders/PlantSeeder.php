@@ -3,8 +3,9 @@
 namespace Database\Seeders;
 
 use App\Models\Plant;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Sector;
 use Illuminate\Database\Seeder;
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 class PlantSeeder extends Seeder
 {
@@ -13,11 +14,11 @@ class PlantSeeder extends Seeder
      */
     public function run(): void
     {
-        Plant::create([
-            'sector_id' => 1,
-            'nama'=> 'mawar',
-            'spesies'=> 'angrry',
-            
+        Sector::create([
+            'nama_sektor' => 'mamalia 1',
+            'lokasi_sektor' => 'Barat daya',
+            'total_konsumsi_kompos' => 75.00,
+            'deskripsi_singkat_sektor' => 'Sektor Jerapah'
         ]);
     }
 }
