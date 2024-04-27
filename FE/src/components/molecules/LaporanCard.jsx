@@ -4,29 +4,33 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useFormik } from "formik";
 import * as yup from "yup";
-import { fetchAuth } from "@/lib/fetchUtils";
+import axios from "axios";
 
 export default function LaporanCard() {
 	const formik = useFormik({
 		initialValues: {
-			judul: "",
-			deskripsi: ""
+			title: "",
+			message: ""
 		},
 		validationSchema: yup.object({
-			judul: yup.string().max(50).required(),
-			deskripsi: yup.string().max(255).required()
+			title: yup.string().max(50).required(),
+			message: yup.string().max(255).required()
 		}),
 		onSubmit: (values) => {
-			// fetchAuth("LOGIN", values)
-			// 	.then((data) => {
-			// 		console.log("__SUCCESS__", data);
-			// 	})
-			// 	.catch((error) => {
-			// 		console.log("__ERROR__", error);
-			// 	});
-			console.log("SUBMITED");
+			handlePost(values);
+			formik.resetForm();
 		}
 	});
+
+	const handlePost = async (values) => {
+		const res = await axios.post("http://127.0.0.1:8000/api/message/sendMessage", {
+			sender_id: 1,
+			title: values.title,
+			message: values.message
+		});
+		console.log(res.data);
+		return res.data;
+	};
 
 	const handleChange = (e) => {
 		formik.setFieldValue(e.target.name, e.target.value);
@@ -34,36 +38,40 @@ export default function LaporanCard() {
 
 	return (
 		<Card className="w-full max-w-sm p-6 border-none">
+			<CardHeader>
+				<CardTitle className="text-3xl">Laporan Baru</CardTitle>
+			</CardHeader>
 			<CardContent className="grid gap-4">
 				{/* JUDUL */}
 				<div className="grid gap-2">
-					<Label htmlFor="judul">Judul</Label>
+					<Label htmlFor="title">Judul</Label>
 					<Input
-						name="judul"
+						name="title"
 						type="text"
 						placeholder=". . ."
 						required
-						id="judul"
+						id="title"
 						onChange={handleChange}
-						className={formik.touched.judul && formik.errors.judul && "box-border border-2 border-red-400"}
+						className={formik.touched.title && formik.errors.title && "box-border border-2 border-red-400"}
 					/>
 				</div>
+
 				{/* DESKRIPSI */}
 				<div className="grid gap-2">
-					<Label htmlFor="deskripsi">Deskripsi</Label>
+					<Label htmlFor="message">Deskripsi</Label>
 					<Input
-						name="deskripsi"
+						name="message"
 						type="text"
 						placeholder=". . ."
 						required
-						id="deskripsi"
+						id="message"
 						onChange={handleChange}
-						className={formik.touched.deskripsi && formik.errors.deskripsi && "box-border border-2 border-red-400"}
+						className={formik.touched.message && formik.errors.message && "box-border border-2 border-red-400"}
 					/>
 				</div>
 			</CardContent>
 			<CardFooter>
-				<Button type="submit" onClick={formik.handleSubmit} className="w-full bg-lime-500">
+				<Button type="submit" onClick={formik.handleSubmit} className="w-full bg-green-600 tracking-wider">
 					LAPOR
 				</Button>
 			</CardFooter>
