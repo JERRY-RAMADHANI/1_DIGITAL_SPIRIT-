@@ -4,6 +4,7 @@ import LaporanCard from "./LaporanCard";
 import { Button } from "@/components/ui/button";
 import { Card, CardDescription, CardHeader, CardTitle } from "../ui/card";
 import { useGet } from "@/hooks/useFetch";
+import axios from "axios";
 
 export default function Report() {
 	const { data } = useGet("http://127.0.0.1:8000/api/message/chatHistory");
