@@ -43,16 +43,16 @@ export default function Home() {
 			<Navbar />
 			<main>
 				<div className="w-screen h-screen relative overflow-hidden flex justify-center items-center">
-					<Card className="w-11/12 sm:w-8/12 lg:w-6/12 border border-slate-300 divide-y divide-slate-500/75 bg-slate-300/50 backdrop-blur-sm grid grid-flow-row hover:backdrop-blur-md transition duration-1000 md:px-8 md:divide-none md:grid-flow-col md:justify-between">
+					<Card className="w-11/12 sm:w-8/12 lg:w-6/12 border border-slate-300 divide-y divide-slate-500/75 bg-slate-300/75 backdrop-blur-0 grid grid-flow-row hover:backdrop-blur-sm transition duration-1000 md:px-8 md:divide-none md:grid-flow-col md:justify-between">
 						<CardHeader>
 							<CardTitle className="text-center p-2 scroll-m-20 text-4xl font-bold tracking-tight lg:text-5xl">
 								Digital Compost
 							</CardTitle>
-							<CardDescription className="text-lg  text-slate-900 leading-7 [&:not(:first-child)]:mt-6">
+							<CardDescription className="text-lg text-center text-slate-900 leading-7 [&:not(:first-child)]:mt-6">
 								Pupuk kompos, si penyelamat lingkungan yang kaya manfaat, hadir sebagai pengingat bahwa keseimbangan dan
 								kelestarian adalah kunci untuk masa depan yang lebih cerah.
 							</CardDescription>
-							<CardFooter className="p-2 flex justify-center">
+							{/* <CardFooter className="p-2 flex justify-center">
 								<div className=" text-slate-100 flex justify-center bg-slate-800 rounded-md overflow-hidden">
 									<Link to="/home">
 										<Button variant="ghost">Home</Button>
@@ -78,7 +78,7 @@ export default function Home() {
 										<Button variant="ghost">Insight</Button>
 									</Link>
 								</div>
-							</CardFooter>
+							</CardFooter> */}
 						</CardHeader>
 					</Card>
 					<img

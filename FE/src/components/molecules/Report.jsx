@@ -11,7 +11,7 @@ export default function Report() {
 	return (
 		<Sheet>
 			<SheetTrigger asChild>
-				<Button variant="link" className="text-green-700">
+				<Button variant="link" className="text-white">
 					Report
 				</Button>
 			</SheetTrigger>
