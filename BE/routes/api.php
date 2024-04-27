@@ -4,8 +4,11 @@ use App\Models\transaction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CompostHistoryController;
 use App\Http\Controllers\inputController;
+use App\Http\Controllers\PlantController;
 use App\Http\Controllers\TransactionController;
+use App\Models\CompostHistory;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,12 +27,12 @@ Route::prefix('auth')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout']);
 });
 
-Route::prefix('Transaction')->group(function () {
-    Route::post('/deposit', [TransactionController::class, 'deposit']);
+Route::prefix('compost')->group(function () {
+    Route::post('/store', [CompostHistoryController::class, 'store']);
 });
 
-Route::prefix('Input')->group(function () {
-    Route::post('/tanaman', [inputController::class, 'create_Tanaman']);
+Route::prefix('plant')->group(function () {
+    Route::post('/store', [PlantController::class, 'store']);
 });
 
 

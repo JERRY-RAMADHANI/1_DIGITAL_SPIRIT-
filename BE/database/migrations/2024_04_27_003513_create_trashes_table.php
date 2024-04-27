@@ -11,9 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('kompos', function (Blueprint $table) {
+        Schema::create('trashes', function (Blueprint $table) {
             $table->id();
-            $table->integer('jumlah');
+            $table->string('nama');
+            $table->float('total');
             $table->timestamps();
         });
     }
@@ -23,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('kompos');
+        Schema::dropIfExists('trashes');
     }
 };
