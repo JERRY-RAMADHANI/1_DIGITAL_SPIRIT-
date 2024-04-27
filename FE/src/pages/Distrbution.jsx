@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Link } from "react-router-dom";
-import { useGet } from "@/hooks/useFetch";
 import kbs from "@/assets/images/peta.png";
 import kbsMapping from "@/assets/images/peta_mapping.png";
 
@@ -21,10 +20,6 @@ export default function Distribution() {
 			.then((data) => data.json())
 			.then((data) => setData([...data.data]));
 	}, []);
-
-	useEffect(() => {
-		console.log(data);
-	}, [data]);
 
 	return (
 		<>
