@@ -28,7 +28,7 @@ const invoices = [
 	}
 ];
 
-export default function Tables({}) {
+export default function Tables({ data }) {
 	return (
 		<Table>
 			<TableCaption>Daftar data terbaru.</TableCaption>
@@ -46,7 +46,7 @@ export default function Tables({}) {
 				{invoices.map((invoice) => (
 					<TableRow key={invoice.id}>
 						<TableCell className="font-medium">{invoice.labaRugi ? "Laba" : "Rugi"}</TableCell>
-						<TableCell className="font-medium">{invoice.nominal}</TableCell>
+						<TableCell className="font-medium">{invoice.nominal} Kg</TableCell>
 						<TableCell>{invoice.tanggal}</TableCell>
 						<TableCell>{invoice.user}</TableCell>
 						<TableCell className="flex gap-4">

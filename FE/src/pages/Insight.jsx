@@ -13,6 +13,8 @@ const sty = {
 };
 
 export default function Insight() {
+	fetch("http://127.0.0.1:8000/api/history", { method: "GET" }).then((res) => console.log(res));
+
 	return (
 		<>
 			<Navbar />
