@@ -30,9 +30,14 @@ export default function ReportCard() {
 
   const onSubmit = async (values, { resetForm }) => {
     try {
-      console.log(resetForm);
-      const res = await axios.post(urlPost, values);
-      resetForm();
+      const obj = {
+        sender_id: 1,
+        message: values.message,
+        title: values.title,
+      }
+      console.log(obj);
+      const res = await axios.post(urlPost, obj);
+      // resetForm();
       console.log(res.data);
       alert("Pesan laporan berhasil dikirim!");
     } catch (error) {
