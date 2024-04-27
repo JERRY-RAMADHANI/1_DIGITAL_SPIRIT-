@@ -3,7 +3,7 @@ import { createContext, useState, useEffect } from "react";
 const initState = {
 	viewport: window.innerWidth,
 	navIsOpen: false,
-	activeLink: "distribution"
+	activeLink: "home"
 };
 
 export const appStateContext = createContext();

@@ -21,7 +21,7 @@ export default function Navbar() {
 	return (
 		<div className={sty.container}>
 			<div className={sty.wrapperHead}>
-				<Link to="/" className="scroll-m-20 text-2xl font-semibold tracking-tight justify-self-start">
+				<Link to="/" className="scroll-m-20 text-2xl font-semibold tracking-wide justify-self-start">
 					Digital Compost
 				</Link>
 				<Button
@@ -35,6 +35,16 @@ export default function Navbar() {
 			</div>
 
 			<div className={`${sty.wrapper} ${appState.viewport < 768 && appState.navIsOpen == false && "hidden"}`}>
+				<Link
+					to="/home"
+					onClick={() => setAppState({ ...appState, navIsOpen: false, activeLink: "home" })}
+					className={sty.Link}
+				>
+					<Button variant="link" className={`${appState.activeLink == "home" && "underline"} text-green-700`}>
+						Home
+					</Button>
+				</Link>
+
 				<Link
 					to="/distribution"
 					onClick={() => setAppState({ ...appState, navIsOpen: false, activeLink: "distribution" })}
@@ -52,16 +62,6 @@ export default function Navbar() {
 				>
 					<Button variant="link" className={`${appState.activeLink == "insight" && "underline"} text-green-700`}>
 						Insight
-					</Button>
-				</Link>
-
-				<Link
-					to="/waste"
-					onClick={() => setAppState({ ...appState, navIsOpen: false, activeLink: "waste" })}
-					className={` ${appState.activeLink == "waste" && "underline"}`}
-				>
-					<Button variant="link" className={`${appState.activeLink == "waste" && "underline"} text-green-700`}>
-						Waste
 					</Button>
 				</Link>
 
