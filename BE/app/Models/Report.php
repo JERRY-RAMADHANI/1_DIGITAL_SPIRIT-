@@ -13,6 +13,7 @@ class Report extends Model
     protected $fillable = [
         'sender_id',
         'message',
+        'title',
         'password',
         
     ];
