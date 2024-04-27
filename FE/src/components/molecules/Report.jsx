@@ -8,8 +8,6 @@ import { useGet } from "@/hooks/useFetch";
 export default function Report() {
 	const { data } = useGet("http://127.0.0.1:8000/api/message/chatHistory");
 
-	console.log(data);
-
 	return (
 		<Sheet>
 			<SheetTrigger asChild>
