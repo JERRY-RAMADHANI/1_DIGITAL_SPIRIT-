@@ -17,36 +17,37 @@ export default function InsightCard({ children }) {
   const formik = useFormik({
     initialValues: {
       nominal: "",
-      tipe_history: 1, // Menyesuaikan dengan nilai default
+      tipe_history: 1,
     },
     validationSchema: yup.object({
-      nominal: yup.number().required(),
+      nominal: yup.number().required().min(0),
       tipe_history: yup.number().required(),
     }),
-    onSubmit: async (values) => {
-      console.log(values);
-        try {
-          // Lakukan Axios POST ke URL yang ditentukan
-          const response = await axios.post(
-            "http://127.0.0.1:8000/api/history/store",
-            values
-          );
+    onSubmit: async (values, { resetForm }) => {
+      const obj = {
+        nominal: parseFloat(values.nominal),
+        tipe_histori: values.tipe_history,
+        user_id: 1,
+        tipe_sampah: children,
+      };
 
-          // Lakukan penanganan respons atau operasi lainnya jika diperlukan
-          console.log(response.data); // Misalnya, mencetak respons ke konsol
-
-          // Reset nilai form setelah berhasil dikirim
-          formik.resetForm();
-
-          // Tampilkan pesan sukses kepada pengguna
-          alert("Data berhasil disimpan!");
-        } catch (error) {
-          // Tangani kesalahan jika terjadi
-          console.error("Error saat mengirim data:", error);
-
-          // Tampilkan pesan kesalahan kepada pengguna
+      try {
+        const response = await axios.post(
+          "http://127.0.0.1:8000/api/history/store",
+          obj
+        );
+        console.log(response.data);
+        resetForm();
+        alert("Data berhasil disimpan!");
+      } catch (error) {
+        console.error("Error saat mengirim data:", error);
+        if (error.response) {
+          console.error("Error:", error.response.data);
+          alert("Terjadi kesalahan saat mengirim data: " + error.response.data);
+        } else {
           alert("Terjadi kesalahan saat mengirim data. Silakan coba lagi.");
         }
+      }
     },
   });
 
@@ -56,59 +57,50 @@ export default function InsightCard({ children }) {
 
   return (
     <Card className="w-full max-w-sm p-6">
-      <CardHeader>
-        <CardTitle className="text-3xl">{children}</CardTitle>
-      </CardHeader>
-      <CardContent className="grid gap-4">
-        {/* NOMINAL */}
-        <div className="grid gap-2">
-          <Label htmlFor="nominal">Nominal</Label>
-          <Input
-            name="nominal"
-            type="number"
-            placeholder="1kg"
-            required
-            id="nominal"
-            onChange={handleChange}
-            className={
-              formik.touched.nominal &&
-              formik.errors.nominal &&
-              "box-border border-2 border-red-400"
-            }
-          />
-          <RadioGroup>
+      <form onSubmit={formik.handleSubmit}>
+        <CardHeader>
+          <CardTitle className="text-3xl">{children}</CardTitle>
+        </CardHeader>
+        <CardContent className="grid gap-4">
+          <div className="grid gap-2">
+            <Label htmlFor="nominal">Nominal</Label>
+            <Input
+              name="nominal"
+              type="number"
+              placeholder="1kg"
+              required
+              id="nominal"
+              onChange={handleChange}
+              className={
+                formik.touched.nominal &&
+                formik.errors.nominal &&
+                "box-border border-2 border-red-400"
+              }
+            />
+            {formik.touched.nominal && formik.errors.nominal && (
+              <div className="text-red-600">{formik.errors.nominal}</div>
+            )}
+          </div>
+          <RadioGroup
+            value={formik.values.tipe_history}
+            onClick={handleChange}
+          >
             <div className="flex items-center space-x-2">
-              <RadioGroupItem
-                name="tipe_history"
-                value={1}
-                id="option-one"
-                checked={formik.values.tipe_history === 1}
-                onChange={handleChange}
-              />
+              <RadioGroupItem name="tipe_history" value={1} id="option-one" />
               <Label htmlFor="option-one">Tambah</Label>
             </div>
             <div className="flex items-center space-x-2">
-              <RadioGroupItem
-                name="tipe_history"
-                value={0}
-                id="option-two"
-                checked={formik.values.tipe_history === 0}
-                onChange={handleChange}
-              />
+              <RadioGroupItem name="tipe_history" value={0} id="option-two" />
               <Label htmlFor="option-two">Kurang</Label>
             </div>
           </RadioGroup>
-        </div>
-      </CardContent>
-      <CardFooter>
-        <Button
-          type="submit"
-          onClick={formik.handleSubmit}
-          className="w-full bg-green-600"
-        >
-          SUBMIT
-        </Button>
-      </CardFooter>
+        </CardContent>
+        <CardFooter>
+          <Button type="submit" className="w-full bg-green-600">
+            SUBMIT
+          </Button>
+        </CardFooter>
+      </form>
     </Card>
   );
 }
