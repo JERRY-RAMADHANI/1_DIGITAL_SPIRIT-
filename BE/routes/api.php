@@ -34,10 +34,12 @@ Route::prefix('compost')->group(function () {
 
 Route::prefix('plant')->group(function () {
     Route::post('/store', [PlantController::class, 'store']);
+    Route::delete('/delete/{id}', [PlantController::class, 'destroy']);
 });
 
 Route::prefix('sector')->group(function () {
     Route::get('/', [SectorController::class, 'index']);
+    Route::get('/detail/{id}', [SectorController::class, 'detail']);
 });
 
 

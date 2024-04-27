@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Plant;
+use App\Models\Sector;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controller;
 
 class PlantController extends Controller
 {
@@ -35,9 +37,11 @@ class PlantController extends Controller
             'foto' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
             'deskripsi_tumbuhan' => 'nullable|string',
         ]);
-
+    
         $fotoPath = $request->file('foto')->store('plant_photos');
-
+    
+        $sector = Sector::find($request->sector_id);
+    
         $plant = new Plant();
         $plant->sector_id = $request->input('sector_id');
         $plant->nama = $request->input('nama');
@@ -46,7 +50,10 @@ class PlantController extends Controller
         $plant->foto = $fotoPath;
         $plant->deskripsi_tumbuhan = $request->input('deskripsi_tumbuhan');
         $plant->save();
-
+    
+        $sector->total_konsumsi_kompos += $request->input('konsumsi_kompos');
+        $sector->save();
+    
         return response()->json($plant, 201);
     }
 
@@ -77,8 +84,16 @@ class PlantController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Plant $plant)
-    {
-        //
-    }
+    public function destroy(Plant $plant, string $id)
+{
+        $plant = Plant::findOrFail($id);
+        $sector = Sector::find($plant->sector_id);
+        
+        $plant->delete();
+
+        $sector->total_konsumsi_kompos -= $plant->konsumsi_kompos;
+        $sector->save();
+
+        return response()->json($plant, 201);
+}
 }

@@ -14,16 +14,26 @@ class SectorController extends Controller
     public function index()
     {
         $sector = Sector::all();
-        // return PostDetailResource::collection(Post::with(['writer:id,username', 'comments.commentator:id,username'])->get());
+
         return SectorDetailResource::collection($sector);
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function detail(string $id)
     {
-        //
+        $sector = Sector::with('tumbuhan')->find($id);
+
+        if (!$sector) {
+            return response()->json(['message' => 'Sector not found'], 404);
+        }
+
+        $sectorDetail = new SectorDetailResource($sector);
+
+        dd($sector);
+
+        return response()->json(['data' => $sectorDetail]);
     }
 
     /**
@@ -51,9 +61,9 @@ class SectorController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Sector $sector)
+    public function Sum(string $id)
     {
-        //
+
     }
 
     /**
