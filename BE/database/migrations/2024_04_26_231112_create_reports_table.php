@@ -14,11 +14,7 @@ return new class extends Migration
         Schema::create('reports', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
-            $table->text('message');
-            $table->text('title');
-            $table->timestamp('created_at')->useCurrent();
-            $table->foreign('sender_id')->references('id')->on('users');
-            $table->timestamp('updated_at')->nullable();
+            $table->timestamps();
         });
     }
 

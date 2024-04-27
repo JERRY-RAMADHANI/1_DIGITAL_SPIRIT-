@@ -13,7 +13,6 @@ class Report extends Model
     protected $fillable = [
         'sender_id',
         'message',
-        'title',
         'password',
         
     ];
@@ -25,6 +24,6 @@ class Report extends Model
      */
     public function reporter(): BelongsTo
     {
-        return $this->belongsTo(User::class, 'sender_id', 'id');
+        return $this->belongsTo(User::class, 'user_id', 'id');
     }
 }
