@@ -22,13 +22,13 @@ const sty = {
 
 export default function Insight() {
   const { data } = useGet("http://127.0.0.1:8000/api/history/");
-  const kompos = data.data.filter(
+  const kompos = data.history.filter(
     (item) => item.tipe_sampah.toLowerCase() === "kompos"
   );
-  const organik = data.data.filter(
+  const organik = data.history.filter(
     (item) => item.tipe_sampah.toLowerCase() === "organik"
   );
-  const anorganik = data.data.filter(
+  const anorganik = data.history.filter(
     (item) => item.tipe_sampah.toLowerCase() === "anorganik"
   );
   return (
