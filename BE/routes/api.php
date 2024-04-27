@@ -2,10 +2,15 @@
 
 use App\Models\transaction;
 use Illuminate\Http\Request;
+use App\Models\CompostHistory;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\inputController;
+use App\Http\Controllers\PlantController;
+use App\Http\Controllers\ReportController;
+use App\Http\Controllers\SectorController;
 use App\Http\Controllers\TransactionController;
+use App\Http\Controllers\CompostHistoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,12 +29,23 @@ Route::prefix('auth')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout']);
 });
 
-Route::prefix('Transaction')->group(function () {
-    Route::post('/deposit', [TransactionController::class, 'deposit']);
+Route::prefix('compost')->group(function () {
+    Route::post('/store', [CompostHistoryController::class, 'store']);
 });
 
-Route::prefix('Input')->group(function () {
-    Route::post('/tanaman', [inputController::class, 'create_Tanaman']);
+Route::prefix('plant')->group(function () {
+    Route::post('/store', [PlantController::class, 'store']);
+    Route::delete('/delete/{id}', [PlantController::class, 'destroy']);
+});
+
+Route::prefix('sector')->group(function () {
+    Route::get('/', [SectorController::class, 'index']);
+    Route::get('/detail/{id}', [SectorController::class, 'detail']);
+});
+
+Route::prefix('message')->group(function () {
+    Route::post('/sendMessage', [ReportController::class, 'sendMessage']);
+    Route::get('/chatHistory', [reportController::class, 'getChatHistory']);
 });
 
 

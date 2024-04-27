@@ -11,18 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('fertilizers', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('role_id');
             $table->string('nama');
-            $table->string('no_telp')->unique();
-            $table->string('email')->unique();
-            $table->string('password');
-            $table->text('alamat');
-            $table->boolean('gender');
+            $table->float('total');
             $table->timestamps();
-
-            $table->foreign('role_id')->references('id')->on('roles')->onDelete('cascade');
         });
     }
 
@@ -31,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('fertilizers');
     }
 };
