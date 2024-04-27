@@ -11,10 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('composts', function (Blueprint $table) {
+        Schema::create('histories', function (Blueprint $table) {
             $table->id();
-            $table->float('total');
+            $table->unsignedBigInteger('user_id');
+            $table->integer('tipe_histori');
+            $table->string('tipe_sampah');
+            $table->float('nominal');
             $table->timestamps();
+
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 
@@ -23,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('composts');
+        Schema::dropIfExists('histories');
     }
 };

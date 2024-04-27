@@ -6,7 +6,7 @@ use App\Models\Role;
 use App\Models\User;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
-use App\Models\Compost;
+use App\Models\History;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -16,9 +16,9 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        Compost::create([
-            'total' => 10
-        ]);
+        // History::create([
+        //     'total' => 10
+        // ]);
 
         Role::create([
             'jenis_role' => 'Petugas Bersih-Bersih Sampah'

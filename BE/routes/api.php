@@ -1,15 +1,17 @@
 <?php
 
+use App\Models\History;
 use App\Models\transaction;
 use Illuminate\Http\Request;
+use App\Models\CompostHistory;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\CompostHistoryController;
 use App\Http\Controllers\inputController;
 use App\Http\Controllers\PlantController;
 use App\Http\Controllers\SectorController;
+use App\Http\Controllers\HistoryController;
 use App\Http\Controllers\TransactionController;
-use App\Models\CompostHistory;
+use App\Http\Controllers\CompostHistoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,15 +30,12 @@ Route::prefix('auth')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout']);
 });
 
-Route::prefix('compost')->group(function () {
-    Route::get('/{compost}', [CompostHistoryController::class, 'show']);
-    Route::post('/store', [CompostHistoryController::class, 'store']);
-    Route::patch('/{compost}', [CompostHistoryController::class, 'update']);
-    Route::delete('/{compost}', [CompostHistoryController::class, 'destroy']);
-});
-
 Route::prefix('plant')->group(function () {
     Route::post('/store', [PlantController::class, 'store']);
+});
+
+Route::prefix('history')->group(function () {
+    Route::get('/', [HistoryController::class, 'index']);
 });
 
 Route::prefix('sector')->group(function () {

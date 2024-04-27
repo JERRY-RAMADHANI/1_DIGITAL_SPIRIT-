@@ -11,15 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('organic_histories', function (Blueprint $table) {
+        Schema::create('trashes', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id');
-            $table->boolean('tipe');
-            $table->float('nominal');
-            $table->float('jumlah_akhir');
+            $table->integer('tipe_sampah');
+            $table->string('nama_sampah');
+            $table->float('total_sampah');
             $table->timestamps();
-
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 
@@ -28,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('organic_histories');
+        Schema::dropIfExists('trashes');
     }
 };
