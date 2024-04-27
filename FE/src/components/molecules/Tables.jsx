@@ -51,9 +51,6 @@ export default function Tables({}) {
 						<TableCell>{invoice.user}</TableCell>
 						<TableCell className="flex gap-4">
 							<Button variant="outline" size="icon" className="w-8 h-8 border-green-500">
-								<Pencil1Icon />
-							</Button>
-							<Button variant="outline" size="icon" className="w-8 h-8 border-green-500">
 								<EraserIcon />
 							</Button>
 						</TableCell>
