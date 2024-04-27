@@ -27,9 +27,8 @@ public function sendMessage(Request $request)
 
     public function getChatHistory()
     {
-        $report = report::orderBy('created_at', 'asc')->get();
-    
-        return response()->json($report);
+        $reports = Report::with('reporter')->orderBy('created_at', 'asc')->get();
+        return response()->json($reports);
     }
 }
 

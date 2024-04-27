@@ -1,16 +1,12 @@
 <?php
 
-use App\Models\transaction;
 use Illuminate\Http\Request;
-use App\Models\CompostHistory;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\inputController;
 use App\Http\Controllers\PlantController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\SectorController;
-use App\Http\Controllers\TransactionController;
-use App\Http\Controllers\CompostHistoryController;
+use App\Http\Controllers\HistoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,13 +25,13 @@ Route::prefix('auth')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout']);
 });
 
-Route::prefix('compost')->group(function () {
-    Route::post('/store', [CompostHistoryController::class, 'store']);
-});
-
 Route::prefix('plant')->group(function () {
     Route::post('/store', [PlantController::class, 'store']);
     Route::delete('/delete/{id}', [PlantController::class, 'destroy']);
+});
+
+Route::prefix('history')->group(function () {
+    Route::get('/', [HistoryController::class, 'index']);
 });
 
 Route::prefix('sector')->group(function () {
