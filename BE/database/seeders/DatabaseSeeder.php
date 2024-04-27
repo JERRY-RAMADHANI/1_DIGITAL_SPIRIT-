@@ -17,15 +17,15 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // Role::create([
-        //     'jenis_role' => 'Petugas Pembersih Sampah',
-        // ]);
-        // Role::create([
-        //     'jenis_role' => 'Petugas Penyebar Pupuk',
-        // ]);
-        // Role::create([
-        //     'jenis_role' => 'Admin',
-        // ]);
+        Role::create([
+            'jenis_role' => 'Petugas Pembersih Sampah',
+        ]);
+        Role::create([
+            'jenis_role' => 'Petugas Penyebar Pupuk',
+        ]);
+        Role::create([
+            'jenis_role' => 'Admin',
+        ]);
         Trash::create([
             'tipe_sampah' => 1,
             'nama_sampah' => "Kompos",
@@ -48,6 +48,6 @@ class DatabaseSeeder extends Seeder
             'deskripsi_singkat_sektor' => 'Sektor Jerapah',
         ]);
 
-        // User::factory(9)->create();
+        User::factory(9)->create();
     }
 }
