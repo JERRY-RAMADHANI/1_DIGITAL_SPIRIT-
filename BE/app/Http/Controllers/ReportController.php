@@ -10,13 +10,14 @@ class ReportController extends Controller
 public function sendMessage(Request $request)
 {
     $validated = $request->validate([
-        'sender_id' => 'required|exists:users,id',
         'message' => 'required|string',
+        'title' => 'required|string',
     ]);
 
     $message = Report::create([
-        'sender_id' => $validated['sender_id'],
+        'user_id' => auth()->user()->id,
         'message' => $validated['message'],
+        'title' => $validated['title'],
     ]);
 
     return response()->json($message);

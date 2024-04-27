@@ -30,7 +30,7 @@ Route::prefix('plant')->group(function () {
     Route::delete('/delete/{id}', [PlantController::class, 'destroy']);
 });
 
-Route::prefix('history')->group(function () {
+Route::prefix('history')->middleware('auth:sanctum')->group(function () {
     Route::get('/', [HistoryController::class, 'index']);
     Route::post('/store', [HistoryController::class, 'store']);
     Route::get('/{history}', [HistoryController::class, 'show']);

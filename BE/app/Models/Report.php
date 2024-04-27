@@ -11,9 +11,9 @@ class Report extends Model
     use HasFactory;
 
     protected $fillable = [
-        'sender_id',
+        'user_id',
         'message',
-        'password',
+        'title',
         
     ];
 

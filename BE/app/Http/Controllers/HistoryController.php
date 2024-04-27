@@ -31,38 +31,39 @@ class HistoryController extends Controller
      */
     public function store(Request $request)
     {
-        // $request['user_id'] = 3;
         $request->validate([
-            'user_id' => 'required|exists:users,id',
             'nominal' => 'required|numeric|min:0',
             'tipe_histori' => 'required|numeric',
             'tipe_sampah' => 'required',
         ]);
 
-        $sampah  = Trash::where('tipe_sampah', '1')->first();
-        if ($request['tipe_sampah'] == "Organic") {
-            $sampah  = Trash::where('tipe_sampah', '2')->first();
-        } else if ($request['tipe_sampah'] == "Anorganic") {
-            $sampah  = Trash::where('tipe_sampah', '3')->first();
-        }
-
+        $userId = auth()->user()->id;
+    
+        $sampah = Trash::where('tipe_sampah', $request['tipe_sampah'])->first();
+    
         if (!$sampah) {
             return response()->json(['error' => 'Data sampah tidak ditemukan'], 404);
         }
-
+    
         if ($request['tipe_histori'] === 1) {
-            $sampah['total_sampah'] += $request['nominal'];
+            $sampah->total_sampah += $request['nominal'];
         } else {
-            $sampah['total_sampah'] -= $request['nominal'];
+            $sampah->total_sampah -= $request['nominal'];
         }
-
+    
         $sampah->save();
-        $history = History::create($request->all());
-
+    
+        $history = History::create([
+            'user_id' => $userId,
+            'nominal' => $request['nominal'],
+            'tipe_histori' => $request['tipe_histori'],
+            'tipe_sampah' => $request['tipe_sampah'],
+        ]);
+    
         if (!$history) {
             return abort(404);
         }
-
+    
         return new HistoryResource($history);
     }
 
