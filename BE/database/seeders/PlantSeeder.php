@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Plant;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -12,6 +13,11 @@ class PlantSeeder extends Seeder
      */
     public function run(): void
     {
-        //
+        Plant::create([
+            'sector_id' => 1,
+            'nama'=> 'mawar',
+            'spesies'=> 'angrry',
+            
+        ]);
     }
 }

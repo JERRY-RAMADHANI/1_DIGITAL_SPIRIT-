@@ -31,9 +31,7 @@ class SectorController extends Controller
 
         $sectorDetail = new SectorDetailResource($sector);
 
-        dd($sector);
-
-        return response()->json(['data' => $sectorDetail]);
+        return response()->json(['data' => $sector]);
     }
 
     /**
