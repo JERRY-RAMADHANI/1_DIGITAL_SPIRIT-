@@ -1,22 +1,22 @@
 import { Button } from "../ui/button";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { appStateContext } from "../../context/AppStateContext";
 import { Link } from "react-router-dom";
 import Report from "@/components/molecules/Report";
+import { HamburgerMenuIcon, Cross1Icon } from "@radix-ui/react-icons";
 
 const sty = {
 	container:
 		"z-10 fixed top-0 w-screen border-b border-slate-300 divide-y divide-slate-500/75 bg-slate-300/75 backdrop-blur-sm grid grid-flow-row hover:backdrop-blur-md transition duration-1000 md:px-8 md:divide-none md:grid-flow-col md:justify-between",
 	wrapperHead: "py-4 px-4 flex gap-4 justify-between items-center md:flex-row",
-	wrapper: "py-4 px-4 flex gap-4 justify-center items-center md:flex-row",
-	btn: "bg-transparent hover:bg-transparent border-2 border-slate-950",
-	DialogContent: "flesx justify-center items-center bg-white"
+	wrapper: "py-4 px-4 flex flex-wrap justify-center items-center md:flex-row",
+	btn: "bg-transparent hover:bg-slate-950 hover:text-slate-200 border-2 border-slate-950 justify-self-end",
+	DialogContent: "flesx justify-center items-center bg-white",
+	Link: "cursor-pointer scroll-m-20 text-xl font-semibold tracking-tight"
 };
 
 export default function Navbar() {
 	const { appState, setAppState } = useContext(appStateContext);
-
-	const handleClick = () => setAppState({ ...appState, navIsOpen: !appState.navIsOpen });
 
 	return (
 		<div className={sty.container}>
@@ -27,23 +27,40 @@ export default function Navbar() {
 				<Button
 					variant="outline"
 					size="icon"
-					onClick={() => handleClick()}
+					onClick={() => setAppState({ ...appState, navIsOpen: !appState.navIsOpen })}
 					className={`${sty.btn} ${appState.viewport > 768 && "hidden"}`}
 				>
-					{appState.viewport < 768 && appState.navIsOpen == false ? "☰" : "X"}
+					{appState.viewport < 768 && appState.navIsOpen == false ? <HamburgerMenuIcon /> : <Cross1Icon />}
 				</Button>
 			</div>
 
 			<div className={`${sty.wrapper} ${appState.viewport < 768 && appState.navIsOpen == false && "hidden"}`}>
-				<Link to="/distribution" className="cursor-pointer scroll-m-20 text-xl font-semibold tracking-tight">
-					<Button variant="link">Distribution</Button>
+				<Link
+					to="/distribution"
+					onClick={() => setAppState({ ...appState, navIsOpen: false, activeLink: "distribution" })}
+					className={sty.Link}
+				>
+					<Button variant="link" className={appState.activeLink == "distribution" && "underline"}>
+						Distribution
+					</Button>
 				</Link>
-				<Link to="/insight" className="cursor-pointer scroll-m-20 text-xl font-semibold tracking-tight">
-					<Button variant="link">Insight</Button>
+				<Link
+					to="/insight"
+					onClick={() => setAppState({ ...appState, navIsOpen: false, activeLink: "insight" })}
+					className={sty.Link}
+				>
+					<Button variant="link" className={appState.activeLink == "insight" && "underline"}>
+						Insight
+					</Button>
 				</Link>
-				<Link to="/waste" className="cursor-pointer scroll-m-20 text-xl font-semibold tracking-tight">
+				<Link
+					to="/waste"
+					onClick={() => setAppState({ ...appState, navIsOpen: false, activeLink: "waste" })}
+					className={` ${appState.activeLink == "waste" && "underline"}`}
+				>
 					<Button variant="link">Waste</Button>
 				</Link>
+
 				<Report />
 			</div>
 

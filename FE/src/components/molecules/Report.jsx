@@ -14,7 +14,9 @@ export default function Report() {
 	return (
 		<Sheet>
 			<SheetTrigger>
-				<Button variant="link">Report</Button>
+				<Button variant="link" asChild>
+					Report
+				</Button>
 			</SheetTrigger>
 			<SheetContent>
 				<SheetHeader>
@@ -23,7 +25,9 @@ export default function Report() {
 
 				<Dialog>
 					<DialogTrigger>
-						<Button variant="outline">Buat Laporan</Button>
+						<Button asChild variant="outline">
+							Buat Laporan
+						</Button>
 					</DialogTrigger>
 					<DialogContent>
 						<DialogHeader>

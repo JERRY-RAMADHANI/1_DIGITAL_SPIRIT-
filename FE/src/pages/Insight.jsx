@@ -22,6 +22,7 @@ export default function Insight() {
 						<p>Card Footer</p>
 					</CardFooter>
 				</Card>
+
 				<Card className={sty.Card}>
 					<CardHeader>
 						<CardTitle>Organik</CardTitle>
@@ -34,6 +35,7 @@ export default function Insight() {
 						<p>Card Footer</p>
 					</CardFooter>
 				</Card>
+
 				<Card className={sty.Card}>
 					<CardHeader>
 						<CardTitle>Anorganik</CardTitle>
