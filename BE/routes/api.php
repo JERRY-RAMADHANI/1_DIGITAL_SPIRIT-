@@ -7,6 +7,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CompostHistoryController;
 use App\Http\Controllers\inputController;
 use App\Http\Controllers\PlantController;
+use App\Http\Controllers\SectorController;
 use App\Http\Controllers\TransactionController;
 use App\Models\CompostHistory;
 
@@ -33,6 +34,10 @@ Route::prefix('compost')->group(function () {
 
 Route::prefix('plant')->group(function () {
     Route::post('/store', [PlantController::class, 'store']);
+});
+
+Route::prefix('sector')->group(function () {
+    Route::get('/', [SectorController::class, 'index']);
 });
 
 

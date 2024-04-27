@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Sector;
 use Illuminate\Http\Request;
+use App\Http\Resources\SectorDetailResource;
 
 class SectorController extends Controller
 {
@@ -12,7 +13,9 @@ class SectorController extends Controller
      */
     public function index()
     {
-        //
+        $sector = Sector::all();
+        // return PostDetailResource::collection(Post::with(['writer:id,username', 'comments.commentator:id,username'])->get());
+        return SectorDetailResource::collection($sector);
     }
 
     /**
@@ -28,7 +31,21 @@ class SectorController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'nama_sektor' => 'required|string',
+            'lokasi_sektor' => 'required|string',
+            'total_konsumsi_kompos' => 'required',
+            'deskripsi_singkat_sektor' => 'nullable|string',
+        ]);
+
+        $sector = new Sector();
+        $sector->nama_sektor = $request->input('nama_sektor');
+        $sector->lokasi_sektor = $request->input('lokasi_sektor');
+        $sector->total_konsumsi_kompos = $request->input('total_konsumsi_kompos');
+        $sector->deskripsi_singkat_sektor = $request->input('deskripsi_singkat_sektor');
+        $sector->save();
+
+        return response()->json($sector, 201);
     }
 
     /**
