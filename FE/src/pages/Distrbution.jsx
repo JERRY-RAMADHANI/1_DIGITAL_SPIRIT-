@@ -1,47 +1,41 @@
-import { useState, useEffect } from "react";
 import Navbar from "@/components/organism/Navbar";
-import bg1 from "@/assets/images/bg1.jpg";
-import bg2 from "@/assets/images/bg2.jpg";
-
-const collection = [bg1, bg2];
+import kbs from "@/assets/images/peta.png";
+import kbsMapping from "@/assets/images/peta_mapping.png";
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+//   CardDescription,
+//   CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 
 export default function Distribution() {
-	const [images, setImages] = useState(collection);
-	const [currentImageIndex, setCurrentImageIndex] = useState(0);
-	const [isTransitioning, setIsTransitioning] = useState(false);
-
-	useEffect(() => {
-		const interval = setInterval(() => {
-			setIsTransitioning(true);
-			setTimeout(() => {
-				setCurrentImageIndex((prevIndex) => (prevIndex + 1) % images.length);
-				setIsTransitioning(false);
-			}, 200);
-		}, 5000);
-
-		return () => clearInterval(interval);
-	}, [images.length]);
-
-	return (
-		<>
-			<Navbar />
-			<main>
-				<div className="w-screen h-screen relative overflow-hidden flex justify-center items-center">
-					<h1
-						id="typed"
-						className="p-2 bg-slate-800/75 text-slate-200 scroll-m-20 text-4xl font-bold tracking-tight lg:text-5xl"
-					>
-						Digital Compost
-					</h1>
-					<img
-						className={`-z-10 absolute top-0 left-0 w-full h-full object-cover transition-opacity duration-500 ${
-							isTransitioning ? "opacity-0" : "opacity-100"
-						}`}
-						src={images[currentImageIndex]}
-						alt="pupuk"
-					/>
-				</div>
-			</main>
-		</>
-	);
+  const [isMapping, setIsMapping] = useState(true);
+  return (
+    <>
+      <Navbar />
+      <main className="flex justify-center">
+        <Card className="mt-24 w-[80%]">
+          <CardHeader>
+            <CardTitle>Distribution</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className=" px-8 flex flex-col gap-4 items-center">
+              <img src={isMapping ? kbs : kbsMapping} alt="Map KBS" />
+              <Button
+                className="w-fit h-8 hover:cursor-pointer text-slate-950 hover:text-white bg-white hover:bg-slate-950 border-2 border-slate-950 justify-self-end"
+                asChild
+                onClick={() => setIsMapping(!isMapping)}
+              >
+                <p>{isMapping ? "Lihat Map Asli" : "Lihat Sector"}</p>
+              </Button>
+            </div>
+          </CardContent>
+        </Card>
+      </main>
+    </>
+  );
 }

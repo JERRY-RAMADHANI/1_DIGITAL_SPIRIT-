@@ -1,5 +1,5 @@
 import { Button } from "../ui/button";
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import { appStateContext } from "../../context/AppStateContext";
 import { Link } from "react-router-dom";
 import Report from "@/components/molecules/Report";
@@ -21,7 +21,7 @@ export default function Navbar() {
 	return (
 		<div className={sty.container}>
 			<div className={sty.wrapperHead}>
-				<Link to="/" className="scroll-m-20 text-2xl font-semibold tracking-wide justify-self-start">
+				<Link to="/home" className="scroll-m-20 text-2xl font-semibold tracking-wide justify-self-start">
 					Digital Compost
 				</Link>
 				<Button
