@@ -15,7 +15,7 @@ class AuthController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:8',
-        ],[
+        ], [
             'hari.required' => 'tanggal Wajib di isi',
 
         ]);
@@ -25,11 +25,10 @@ class AuthController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'password' => bcrypt($request->password),
-            
+
         ]);
 
         return response()->json(['message' => 'User created successfully'], 201);
-
     }
 
     public function login(Request $request)
@@ -51,4 +50,3 @@ class AuthController extends Controller
         return response()->json(['message' => 'Successfully logged out']);
     }
 }
-
