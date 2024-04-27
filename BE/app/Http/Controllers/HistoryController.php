@@ -15,7 +15,7 @@ class HistoryController extends Controller
      */
     public function index()
     {
-        $historyKompos = History::with('author:id,nama,role_id')
+        $historyKompos = History::with('author:id,nama,role')
             ->whereDate('created_at', '>', now()->subDays(7))
             ->where('tipe_sampah', 'Kompos')
             ->get();
@@ -30,7 +30,7 @@ class HistoryController extends Controller
             }
         }
 
-        $history = History::with('author:id,nama,role_id')
+        $history = History::with('author:id,nama,role')
             ->get();
 
 
