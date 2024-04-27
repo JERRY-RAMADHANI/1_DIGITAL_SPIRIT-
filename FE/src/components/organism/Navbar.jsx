@@ -8,7 +8,7 @@ import logo from "@/assets/images/logoWhite.png"
 
 const sty = {
 	container:
-		"z-10 fixed top-0 w-screen border-b border-slate-300 divide-y divide-white-500/75 bg-green-700/75 backdrop-blur-sm grid grid-flow-row hover:backdrop-blur-md transition duration-1000 md:px-8 md:divide-none md:grid-flow-col md:justify-between",
+		"z-10 fixed top-0 w-screen divide-y divide-white-500/75 bg-green-700/75 backdrop-blur-md grid grid-flow-row transition duration-1000 md:px-8 md:divide-none md:grid-flow-col md:justify-between",
 	wrapperHead: "py-4 px-4 flex gap-4 justify-between items-center md:flex-row",
 	wrapper: "py-4 px-4 flex flex-wrap justify-center items-center md:flex-row",
 	btn: "bg-transparent hover:bg-white hover:text-green-700 text-white border-2 border-white justify-self-end",
