@@ -1,14 +1,14 @@
-import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import {
 	Dialog,
 	DialogContent,
-	DialogDescription,
 	DialogHeader,
 	DialogTitle,
 	DialogTrigger
 } from "@/components/ui/dialog";
 import LaporanCard from "./LaporanCard";
 import { Button } from "@/components/ui/button";
+import TransactionHistory from "./TransactionHistory";
 
 export default function Report() {
 	return (
@@ -18,7 +18,7 @@ export default function Report() {
 					Report
 				</Button>
 			</SheetTrigger>
-			<SheetContent>
+			<SheetContent className="flex flex-col align-top">
 				<SheetHeader>
 					<SheetTitle>Laporan Kompos</SheetTitle>
 				</SheetHeader>
@@ -33,10 +33,10 @@ export default function Report() {
 						<DialogHeader>
 							<DialogTitle>Laporan Baru</DialogTitle>
 						</DialogHeader>
-
 						<LaporanCard />
 					</DialogContent>
 				</Dialog>
+				<TransactionHistory />
 			</SheetContent>
 		</Sheet>
 	);
