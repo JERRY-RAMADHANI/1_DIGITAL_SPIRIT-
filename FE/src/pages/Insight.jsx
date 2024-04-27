@@ -50,8 +50,8 @@ export default function Insight() {
                 <div>
                   <CardTitle>Kompos</CardTitle>
                   <CardDescription className="mt-4">
-                    <p>{`Total Pengeluaran: ${data.totalPengeluaran}`}</p>
-                    <p>{`Total Pendapatan: ${data.totalPendapatan}`}</p>
+                    <p>{`Total Pengeluaran minggu ini: ${data.totalPengeluaran}`}</p>
+                    <p>{`Total Pendapatan minggu ini: ${data.totalPendapatan}`}</p>
                     <p>{`Total Kompos: ${data.totalKompos}`}</p>
                   </CardDescription>
                 </div>

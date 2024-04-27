@@ -48,6 +48,6 @@ class DatabaseSeeder extends Seeder
             'deskripsi_singkat_sektor' => 'Sektor Jerapah',
         ]);
 
-        // User::factory(9)->create();
+        User::factory(9)->create();
     }
 }

@@ -14,7 +14,7 @@ class Report extends Model
         'sender_id',
         'message',
         'title',
-        
+
     ];
 
     /**

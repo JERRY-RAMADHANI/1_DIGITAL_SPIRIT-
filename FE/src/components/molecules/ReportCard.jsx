@@ -28,7 +28,7 @@ export default function ReportCard() {
       .required("Deskripsi laporan tidak boleh kosong."),
   });
 
-  const onSubmit = async (values, { resetForm }) => {
+  const onSubmit = async (values) => {
     try {
       const obj = {
         sender_id: 1,
