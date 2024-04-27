@@ -1,64 +1,65 @@
-import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow, TableFooter } from "@/components/ui/table";
+import {
+	Table,
+	TableBody,
+	TableCaption,
+	TableCell,
+	TableHead,
+	TableHeader,
+	TableRow,
+	TableFooter
+} from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
-import { Pencil1Icon } from "@radix-ui/react-icons";
+import { Pencil1Icon, EraserIcon } from "@radix-ui/react-icons";
 
 const invoices = [
 	{
-		invoice: "INV001",
-		paymentStatus: "Paid",
-		totalAmount: "$250.00",
-		paymentMethod: "Credit Card"
+		id: 1,
+		labaRugi: false,
+		nominal: 10000,
+		tanggal: "2022-11-17",
+		user: "test abc"
 	},
 	{
-		invoice: "INV002",
-		paymentStatus: "Pending",
-		totalAmount: "$150.00",
-		paymentMethod: "PayPal"
-	},
-	{
-		invoice: "INV003",
-		paymentStatus: "Unpaid",
-		totalAmount: "$350.00",
-		paymentMethod: "Bank Transfer"
+		id: 2,
+		labaRugi: true,
+		nominal: 10000,
+		tanggal: "2022-11-17",
+		user: "test abc"
 	}
 ];
 
-export default function Tables() {
+export default function Tables({}) {
 	return (
 		<Table>
-			<TableCaption>A list of your recent invoices.</TableCaption>
+			<TableCaption>Daftar data terbaru.</TableCaption>
 			<TableHeader>
 				<TableRow>
-					<TableHead className="w-[100px]">Invoice</TableHead>
-					<TableHead>Status</TableHead>
-					<TableHead>Method</TableHead>
-					<TableHead className="text-right">Amount</TableHead>
-					<TableHead className="text-right">Action</TableHead>
+					<TableHead className="w-[100px]">Laba Rugi</TableHead>
+					<TableHead>Nominal</TableHead>
+					<TableHead>Tanggal</TableHead>
+					<TableHead>User</TableHead>
+					<TableHead>Action</TableHead>
 				</TableRow>
 			</TableHeader>
 
 			<TableBody>
 				{invoices.map((invoice) => (
-					<TableRow key={invoice.invoice}>
-						<TableCell className="font-medium">{invoice.invoice}</TableCell>
-						<TableCell>{invoice.paymentStatus}</TableCell>
-						<TableCell>{invoice.paymentMethod}</TableCell>
-						<TableCell className="text-right">{invoice.totalAmount}</TableCell>
-						<TableCell className="text-right">
+					<TableRow key={invoice.id}>
+						<TableCell className="font-medium">{invoice.labaRugi ? "Laba" : "Rugi"}</TableCell>
+						<TableCell className="font-medium">{invoice.nominal}</TableCell>
+						<TableCell>{invoice.tanggal}</TableCell>
+						<TableCell>{invoice.user}</TableCell>
+						<TableCell className="flex gap-4">
 							<Button variant="outline" size="icon" className="w-8 h-8 border-green-500">
 								<Pencil1Icon />
+							</Button>
+							<Button variant="outline" size="icon" className="w-8 h-8 border-green-500">
+								<EraserIcon />
 							</Button>
 						</TableCell>
 					</TableRow>
 				))}
 			</TableBody>
-
-			<TableFooter>
-				<TableRow>
-					<TableCell colSpan={4}>Total</TableCell>
-					<TableCell className="text-right">$99990</TableCell>
-				</TableRow>
-			</TableFooter>
 		</Table>
 	);
 }

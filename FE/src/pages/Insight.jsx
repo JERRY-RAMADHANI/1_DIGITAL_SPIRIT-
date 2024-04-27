@@ -1,13 +1,15 @@
 import Navbar from "@/components/organism/Navbar";
-import { PlusIcon, MinusIcon } from "@radix-ui/react-icons";
+import { PlusIcon } from "@radix-ui/react-icons";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import Tables from "@/components/molecules/Tables";
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
+import InsightCard from "@/components/molecules/InsightCard";
 
 const sty = {
 	Card: "mb-4 md:mx-20 lg:mx-40",
-	Button: "border-2 border-green-700 hover:bg-green-700 hover:text-slate-200"
+	Button: "w-8 h-8 border-2 border-green-700 hover:bg-green-700 hover:text-slate-200"
 };
 
 export default function Insight() {
@@ -35,10 +37,14 @@ export default function Insight() {
 								</div>
 								<div className="flex justify-end gap-4">
 									<Button variant="outline" size="icon" className={sty.Button}>
-										<PlusIcon />
-									</Button>
-									<Button variant="outline" size="icon" className={sty.Button}>
-										<MinusIcon />
+										<Dialog>
+											<DialogTrigger asChild>
+												<PlusIcon />
+											</DialogTrigger>
+											<DialogContent className="sm:max-w-[425px]">
+												<InsightCard>Kompos</InsightCard>
+											</DialogContent>
+										</Dialog>
 									</Button>
 								</div>
 							</CardHeader>
@@ -60,10 +66,14 @@ export default function Insight() {
 								</div>
 								<div className="flex justify-end gap-4">
 									<Button variant="outline" size="icon" className={sty.Button}>
-										<PlusIcon />
-									</Button>
-									<Button variant="outline" size="icon" className={sty.Button}>
-										<MinusIcon />
+										<Dialog>
+											<DialogTrigger asChild>
+												<PlusIcon />
+											</DialogTrigger>
+											<DialogContent className="sm:max-w-[425px]">
+												<InsightCard>Organik</InsightCard>
+											</DialogContent>
+										</Dialog>
 									</Button>
 								</div>
 							</CardHeader>
@@ -85,10 +95,14 @@ export default function Insight() {
 								</div>
 								<div className="flex justify-end gap-4">
 									<Button variant="outline" size="icon" className={sty.Button}>
-										<PlusIcon />
-									</Button>
-									<Button variant="outline" size="icon" className={sty.Button}>
-										<MinusIcon />
+										<Dialog>
+											<DialogTrigger asChild>
+												<PlusIcon />
+											</DialogTrigger>
+											<DialogContent className="sm:max-w-[425px]">
+												<InsightCard>Anorganik</InsightCard>
+											</DialogContent>
+										</Dialog>
 									</Button>
 								</div>
 							</CardHeader>
