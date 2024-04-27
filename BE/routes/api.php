@@ -25,7 +25,7 @@ Route::prefix('auth')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout']);
 });
 
-Route::prefix('plant')->group(function () {
+Route::prefix('plant')->middleware('auth:sanctum')->group(function () {
     Route::post('/store', [PlantController::class, 'store']);
     Route::delete('/delete/{id}', [PlantController::class, 'destroy']);
 });
@@ -38,7 +38,7 @@ Route::prefix('history')->middleware('auth:sanctum')->group(function () {
     Route::delete('/{history}', [HistoryController::class, 'destroy']);
 });
 
-Route::prefix('sector')->group(function () {
+Route::prefix('sector')->middleware('auth:sanctum')->group(function () {
     Route::get('/', [SectorController::class, 'index']);
     Route::get('/detail/{id}', [SectorController::class, 'detail']);
 });
