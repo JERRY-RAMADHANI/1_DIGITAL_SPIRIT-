@@ -1,11 +1,9 @@
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useFormik } from "formik";
 import * as yup from "yup";
-import { fetchAuth } from "@/lib/fetchUtils";
-import { Children } from "react";
 
 export default function InsightCard({ children }) {
 	const formik = useFormik({
@@ -15,16 +13,7 @@ export default function InsightCard({ children }) {
 		validationSchema: yup.object({
 			nominal: yup.number().required()
 		}),
-		onSubmit: (values) => {
-			fetchAuth("LOGIN", values)
-				.then((data) => {
-					console.log("__SUCCESS__", data);
-					setAuth({ authenticated: true });
-				})
-				.catch((error) => {
-					console.log("__ERROR__", error);
-				});
-		}
+		onSubmit: (values) => {}
 	});
 
 	const handleChange = (e) => {
@@ -36,6 +25,7 @@ export default function InsightCard({ children }) {
 			<CardHeader>
 				<CardTitle className="text-3xl">{children}</CardTitle>
 			</CardHeader>
+
 			<CardContent className="grid gap-4">
 				{/* NOMINAL */}
 				<div className="grid gap-2">
@@ -43,7 +33,7 @@ export default function InsightCard({ children }) {
 					<Input
 						name="nominal"
 						type="number"
-						placeholder="1.000.000"
+						placeholder=". . . kg"
 						required
 						id="nominal"
 						onChange={handleChange}
@@ -51,9 +41,10 @@ export default function InsightCard({ children }) {
 					/>
 				</div>
 			</CardContent>
+
 			<CardFooter>
 				<Button type="submit" onClick={formik.handleSubmit} className="w-full bg-green-600">
-					LOGIN
+					SUBMIT
 				</Button>
 			</CardFooter>
 		</Card>

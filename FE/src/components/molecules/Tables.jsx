@@ -38,7 +38,7 @@ export default function Tables({}) {
 					<TableHead>Nominal</TableHead>
 					<TableHead>Tanggal</TableHead>
 					<TableHead>User</TableHead>
-					<TableHead>Action</TableHead>
+					{/* <TableHead>Action</TableHead> */}
 				</TableRow>
 			</TableHeader>
 
@@ -49,14 +49,14 @@ export default function Tables({}) {
 						<TableCell className="font-medium">{invoice.nominal}</TableCell>
 						<TableCell>{invoice.tanggal}</TableCell>
 						<TableCell>{invoice.user}</TableCell>
-						<TableCell className="flex gap-4">
+						{/* <TableCell className="flex gap-4">
 							<Button variant="outline" size="icon" className="w-8 h-8 border-green-500">
 								<Pencil1Icon />
 							</Button>
 							<Button variant="outline" size="icon" className="w-8 h-8 border-green-500">
 								<EraserIcon />
 							</Button>
-						</TableCell>
+						</TableCell> */}
 					</TableRow>
 				))}
 			</TableBody>
